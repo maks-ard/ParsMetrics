@@ -3,7 +3,7 @@ from openpyxl.utils import get_column_letter
 from openpyxl.worksheet import worksheet
 import datetime
 
-filename = 'копия метрик.xlsx'
+filename = 'metrics.xlsx'
 
 
 def edit_file():
