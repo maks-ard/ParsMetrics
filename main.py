@@ -1,53 +1,63 @@
-from urllib import response
-import openpyxl, requests, datetime
-
+import openpyxl, datetime
+from bs4 import BeautifulSoup
+import lxml
+import selenium_ym
 
 filename = 'metrics.xlsx'
-url = 'https://metrika.yandex.ru/stat/conversion_rate?no_robots=1&robots_metric=1&cross_device_attribution=1&cross_device_users_metric=0&group=dekaminute&period=yesterday&accuracy=1&id=19405381'
+all_id = {'6': '224297277', '7': '224639723', '8': '224834768', '11': '55411018', '12': '55411021', '13': '114998911',
+          '14': '114998914', '16': '102628633',
+          '17': '102628636', '18': '102628642', '19': '102628645', '21': '102677101', '22': '102677104',
+          '23': '102677107', '24': '102677110', '26': '199430452',
+          '27': '199430455', '28': '199430458', '29': '196198924', '31': '167643286', '32': '167643289',
+          '33': '167643292', '34': '168294223', '35': '101217211',
+          '37': '158922628', '39': '101322853', '40': '101322856', '41': '101322859', '43': '101328364',
+          '44': '101328367', '45': '101328370', '46': '146128744',
+          '47': '119690419', '49': '128708563', '50': '128708566', '52': '188721370', '53': '228873339',
+          '54': '156370684', '57': '227367599', '58': '227367600',
+          '60': '227368982', '61': '227368983', '62': '227368984', '63': '227368985', '64': '227368986',
+          '65': '227392707', '66': '227392776'}
 
 
+def read_index():
+    metrics = {}
+    with open(r'index.html', encoding='utf-8') as file:
+        src = file.read()
+    soup = BeautifulSoup(src, 'lxml')
+    for key, dataid in all_id.items():
+        try:
+            element = soup.find('tr', {'data-id': f'{dataid}'}).find(
+                class_='conversion-report__goal-metric-row_type_visits').find('td', class_='conversion-report__goal-metric-row-right')
+            num = ''.join(i for i in element.text if i in '0123456789')
+            metrics[key] = num
+        except Exception:
+            title = soup.find('tr', {'data-id': f'{dataid}'}).find(class_='conversion-report__goal-title')
+            metrics[key] = ''
+            print(f'Ошибка в {title.text}')
+    return metrics
 
-def parse_metrics():
-	headers = {
-		"Host": "metrika.yandex.ru",
-		"Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
-		"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:96.0) Gecko/20100101 Firefox/96.0"
-		# 'Cookie': 'yandexuid=2767614281641979789; is_gdpr=0; is_gdpr_b=CMTYOBC4YSgC; _yasc=smTeHW69IDAhDs3iFjiFbUp6ad2Jx15ZAyDKtvJqKdvwquTG7z6FYNYDrQBQi0yppLs=;\
-		# 			i=L68r2Uld7G1sR/pTqdIphPcKDRg2fQZuESQc9tC26zsXNfkViZhfEIQbZBsUUPNF3kQXr8YUaOKwIiXALcggh2dffYQ=; \
-		# 			yabs-frequency=/5/00020000001SlWDY/ujohYroPR7uOHU2gPGBOHWmaSnX5W0TU-7bLgZvS_qJy____XcGPErUFz6SOHK05XSAJPRzFLnX5OBRYV0tZjMrp64KW/; \
-		# 			yp=1676448724.p_sw.1644912724#1676359957.p_cl.1644823957#1645016376.mcv.0#1645016376.mct.null#1645016376.mcl.1hqjiwu#1645016376.szm.1%3A1920x108…=0; \
-		# 			Session_id=3:1644914890.5.0.1644826261254:MurAPg:12.1.2:1|1520876748.88629.2.2:88629|3:248119.482589.J145mBO3g3y7y97mJmtNPOnlmSY; \
-		# 			sessionid2=3:1644914890.5.0.1644826261254:MurAPg:12.1.2:1|1520876748.88629.2.2:88629|3:248119.482589.J145mBO3g3y7y97mJmtNPOnlmSY; \
-		# 			L=CQJpVgQGSlJCVmV5bUppVnx1WwxSUmd/Kz1cNxUiGC4yNg==.1644914890.14889.387869.d55951f1f0db780ba4efc0b218bf388c; yandex_login=ardeev.max; \
-		# 			mda=0; yandex_gid=20; my=YwA=; computer=1; XcfPaDInQpzKj=1; 71f6f4a784872450ca476fdbfe296e9d=1; _ymfc=p:yesterday'
-		# 'login': 'ardeev.max@yandex.ru',
-		# 'password': 'Thebesthimik2021'
-	}
-	response = requests.get(url, headers=headers, cookies=)
-	print(response.status_code)
-
-	with open('index.html', 'w', encoding='utf-8') as file:
-		file.write(response.text)
 
 def edit_file():
-	book = openpyxl.load_workbook(filename=filename)
-	sheet = book.active
+    book = openpyxl.load_workbook(filename=filename)
+    sheet = book.active
+    metrics = read_index()
 
-	all_col = {
-		'01' : 'B', '02' : 'D','03' : 'F','04' : 'H','05' : 'J','06' : 'L','07' : 'N','08' : 'P','09' : 'R','10' : 'T',
-		'11' : 'V','12' : 'X','13' : 'Z','14' : 'AB','15' : 'AD','16' : 'AF','17' : 'AH','18' : 'AJ','19' : 'AL','20' : 'AN',
-		'21' : 'AP','22' : 'AR','23' : 'AT','24' : 'AV','25' : 'AX','26' : 'AZ','27' : 'BB','28' : 'BD','29' : 'BF','30' : 'BH','31' : 'BJ'
-	}
-	x = [3, 4, 6, 7, 8, 11, 12, 13, 14, 16, 17, 18, 19, 21, 22, 23, 24, 26, 27, 28, 29, 31, 32, 33, 34, 
-		35, 37, 39, 40, 41, 43, 44, 45, 46, 47, 49, 50, 53, 53, 54, 57, 58, 60, 61, 62, 63, 64, 65, 66]
+    all_col = {
+        '01': 'B', '02': 'D', '03': 'F', '04': 'H', '05': 'J', '06': 'L', '07': 'N', '08': 'P', '09': 'R', '10': 'T',
+        '11': 'V', '12': 'X', '13': 'Z', '14': 'AB', '15': 'AD', '16': 'AF', '17': 'AH', '18': 'AJ', '19': 'AL',
+        '20': 'AN',
+        '21': 'AP', '22': 'AR', '23': 'AT', '24': 'AV', '25': 'AX', '26': 'AZ', '27': 'BB', '28': 'BD', '29': 'BF',
+        '30': 'BH', '31': 'BJ'
+    }
 
-	now_day = datetime.datetime.today().strftime("%d")
-	col = all_col[now_day]
+    now_day = datetime.datetime.today().strftime("%d")
+    col = all_col[now_day]
 
-	for item in range(len(x)):
-		sheet[col + str(x[item])] = 100
+    for key, index in metrics.items():
+        sheet[col + key] = index
 
-	book.save(filename=filename)
+    book.save(filename=filename)
 
-if __name__=='__main__':
-	parse_metrics()
+
+if __name__ == '__main__':
+    selenium_ym.parse_metrics()
+    edit_file()
