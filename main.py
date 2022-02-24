@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import lxml
 import selenium_ym
 
-filename = 'metrics.xlsx'
+filename = r'data/Метрики2022.xlsx'
 all_id = {'6': '224297277', '7': '224639723', '8': '224834768', '11': '55411018', '12': '55411021', '13': '114998911',
           '14': '114998914', '16': '102628633',
           '17': '102628636', '18': '102628642', '19': '102628645', '21': '102677101', '22': '102677104',
@@ -50,7 +50,7 @@ def edit_file():
     }
 
     now_day = datetime.datetime.today().strftime("%d")
-    col = all_col[now_day]
+    col = all_col[(str(int(now_day) - 1))]
 
     for key, index in metrics.items():
         sheet[col + key] = index
@@ -60,4 +60,4 @@ def edit_file():
 
 if __name__ == '__main__':
     selenium_ym.parse_metrics()
-    edit_file()
+    # edit_file()
