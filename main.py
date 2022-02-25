@@ -1,10 +1,14 @@
 import openpyxl, datetime
 from bs4 import BeautifulSoup
-import lxml
 import selenium_ym
 
-filename = r'data/Метрики2022.xlsx'
-all_id = {'6': '224297277', '7': '224639723', '8': '224834768', '11': '55411018', '12': '55411021', '13': '114998911',
+filename = r'data/CopyMetrics2022.xlsx'
+htmlfile = r'data/index.html'
+htmlfile_all_u = r'data/index_all.html'
+htmlfile_con_u = r'data/index_conversed.html'
+
+all_id = {'3': '', '4': '',
+          '6': '224297277', '7': '224639723', '8': '224834768', '11': '55411018', '12': '55411021', '13': '114998911',
           '14': '114998914', '16': '102628633',
           '17': '102628636', '18': '102628642', '19': '102628645', '21': '102677101', '22': '102677104',
           '23': '102677107', '24': '102677110', '26': '199430452',
@@ -20,19 +24,53 @@ all_id = {'6': '224297277', '7': '224639723', '8': '224834768', '11': '55411018'
 
 def read_index():
     metrics = {}
-    with open(r'index.html', encoding='utf-8') as file:
+
+    # Поиск по ключу 3
+    with open(htmlfile_all_u, encoding='utf-8') as file:
+        src_3 = file.read()
+    soup_3 = BeautifulSoup(src_3, 'lxml')
+
+    try:
+        print("Поиск по ключу '3'...")
+        element_3 = soup_3.find_all('td', class_='data-table__cell data-table__cell_body_yes data-table__cell_type_metric')[1]
+        num = ''.join(item for item in element_3.text if item in '0123456789')
+        metrics['3'] = num
+    except Exception:
+        metrics['3'] = ''
+        print("'3' значение не найдено")
+
+    # Поиск по ключу 4
+    with open(htmlfile_con_u, encoding='utf-8') as file:
+        src_4 = file.read()
+    soup_4 = BeautifulSoup(src_4, 'lxml')
+
+    try:
+        print("Поиск по ключу '4'...")
+        element_4 = soup_4.find_all('td', class_='data-table__cell data-table__cell_body_yes data-table__cell_type_metric')[4]
+        num = ''.join(item for item in element_4.text if item in '0123456789')
+        metrics['4'] = num
+    except Exception:
+        metrics['4'] = ''
+        print("'4' значение не найдено")
+
+    # Поиск остальных ключей
+    with open(htmlfile, encoding='utf-8') as file:
         src = file.read()
     soup = BeautifulSoup(src, 'lxml')
+
     for key, dataid in all_id.items():
         try:
+            if key == '3' or key == '4':
+                continue
             element = soup.find('tr', {'data-id': f'{dataid}'}).find(
-                class_='conversion-report__goal-metric-row_type_visits').find('td', class_='conversion-report__goal-metric-row-right')
-            num = ''.join(i for i in element.text if i in '0123456789')
+                class_='conversion-report__goal-metric-row_type_visits').find('td',
+                                                                              class_='conversion-report__goal-metric-row-right')
+            num = ''.join(item for item in element.text if item in '0123456789')
             metrics[key] = num
+            print(f'{key}/{len(metrics)} найдено...')
         except Exception:
-            title = soup.find('tr', {'data-id': f'{dataid}'}).find(class_='conversion-report__goal-title')
             metrics[key] = ''
-            print(f'Ошибка в {title.text}')
+            print(f'{key}/{len(metrics)} значение не найдено...')
     return metrics
 
 
@@ -53,11 +91,19 @@ def edit_file():
     col = all_col[(str(int(now_day) - 1))]
 
     for key, index in metrics.items():
-        sheet[col + key] = index
+        if index != '':
+            sheet[col + key] = int(index)
+            print(f'{key}/{len(metrics)} записано...')
 
     book.save(filename=filename)
 
 
 if __name__ == '__main__':
-    selenium_ym.parse_metrics()
-    # edit_file()
+    try:
+        print("Запуск парсера...")
+        selenium_ym.parse_metrics()
+        print('\nЗапись данных в Ecxel...')
+        edit_file()
+        print('Success!')
+    except Exception as ex:
+        print(f'\n{"-" * 10}ОШИБКА{"-" * 10}\n{ex}')
