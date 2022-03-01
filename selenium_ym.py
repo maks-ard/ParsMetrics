@@ -8,12 +8,12 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 
-url = 'https://metrika.yandex.ru/stat/conversion_rate?id=19405381&period=yesterday&accuracy=1'
-url_all_users = 'https://metrika.yandex.ru/stat/traffic?group=dekaminute&period=yesterday&accuracy=1&id=19405381&stateHash=6188e736f4778500b9cb836a'
-url_convers_users = 'https://metrika.yandex.ru/stat/traffic?goal=32946132&metric=ym%3As%3Agoal%3Cgoal_id%3Evisits&group=dekaminute&period=yesterday&accuracy=1&id=19405381&stateHash=6188d6af74684c00fe6de222'
 
+def parse_metrics(day: str):
+    URL = f'https://metrika.yandex.ru/stat/conversion_rate?no_robots=1&robots_metric=1&cross_device_attribution=1&cross_device_users_metric=0&period=2022-02-{day}%3A2022-02-{day}&accuracy=1&id=19405381'
+    URL_CONVERS = f'https://metrika.yandex.ru/stat/traffic?goal=32946132&metric=ym%3As%3Agoal%3Cgoal_id%3Evisits&period=2022-02-{day}%3A2022-02-{day}&accuracy=1&id=19405381&stateHash=6188d6af74684c00fe6de222'
+    URL_USERS = f'https://metrika.yandex.ru/stat/traffic?period=2022-02-{day}%3A2022-02-{day}&accuracy=1&id=19405381&stateHash=6188e736f4778500b9cb836a'
 
-def parse_metrics():
     options = Options()
     useragent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:97.0) Gecko/20100101 Firefox/97.0'
     options.add_argument(f'user-agent={useragent}')
@@ -25,7 +25,7 @@ def parse_metrics():
 
     try:
         print('Парсер запущен...')
-        driver.get(url)
+        driver.get(URL)
 
         login = wait.until(ec.visibility_of_element_located((By.XPATH, '//input[@type="text"]')))
         login.click()
@@ -48,7 +48,7 @@ def parse_metrics():
             print('Запись страницы в HTML файл...')
             file.write(code_ym)
 
-        driver.get(url_all_users)
+        driver.get(URL_USERS)
         time.sleep(3)
         code_au = driver.page_source
         print('Запись index_all.html')
@@ -56,7 +56,7 @@ def parse_metrics():
             print('Запись страницы в HTML файл...')
             file.write(code_au)
 
-        driver.get(url_convers_users)
+        driver.get(URL_CONVERS)
         time.sleep(3)
         code_cu = driver.page_source
         print('Запись index_conversed.html')

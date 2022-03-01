@@ -67,43 +67,43 @@ def read_index():
                                                                               class_='conversion-report__goal-metric-row-right')
             num = ''.join(item for item in element.text if item in '0123456789')
             metrics[key] = num
-            print(f'{key}/{len(metrics)} найдено...')
+            print(f'{key} найдено...')
         except Exception:
             metrics[key] = ''
-            print(f'{key}/{len(metrics)} значение не найдено...')
+            print(f'{key} значение не найдено...')
     return metrics
 
 
-def edit_file():
+def edit_file(day):
     book = openpyxl.load_workbook(filename=filename)
     sheet = book.active
     metrics = read_index()
 
     all_col = {
         '01': 'B', '02': 'D', '03': 'F', '04': 'H', '05': 'J', '06': 'L', '07': 'N', '08': 'P', '09': 'R', '10': 'T',
-        '11': 'V', '12': 'X', '13': 'Z', '14': 'AB', '15': 'AD', '16': 'AF', '17': 'AH', '18': 'AJ', '19': 'AL',
-        '20': 'AN',
-        '21': 'AP', '22': 'AR', '23': 'AT', '24': 'AV', '25': 'AX', '26': 'AZ', '27': 'BB', '28': 'BD', '29': 'BF',
-        '30': 'BH', '31': 'BJ'
+        '11': 'V', '12': 'X', '13': 'Z', '14': 'AB', '15': 'AD', '16': 'AF', '17': 'AH', '18': 'AJ', '19': 'AL', '20': 'AN',
+        '21': 'AP', '22': 'AR', '23': 'AT', '24': 'AV', '25': 'AX', '26': 'AZ', '27': 'BB', '28': 'BD', '29': 'BF', '30': 'BH', '31': 'BJ'
     }
 
-    now_day = datetime.datetime.today().strftime("%d")
-    col = all_col[(str(int(now_day) - 1))]
+    # now_day = datetime.datetime.today().strftime("%d")
+    # col = all_col[(str(int(now_day) - 1))]
+    col = all_col[day]
 
     for key, index in metrics.items():
         if index != '':
             sheet[col + key] = int(index)
-            print(f'{key}/{len(metrics)} записано...')
+            print(f'{key}/66 записано...')
 
     book.save(filename=filename)
 
 
 if __name__ == '__main__':
     try:
+        day = str(input('За какой день нужна выгрузка? '))
         print("Запуск парсера...")
-        selenium_ym.parse_metrics()
+        selenium_ym.parse_metrics(day)
         print('\nЗапись данных в Ecxel...')
-        edit_file()
+        edit_file(day)
         print('Success!')
     except Exception as ex:
         print(f'\n{"-" * 10}ОШИБКА{"-" * 10}\n{ex}')
