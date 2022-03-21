@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import selenium_ym
 from progress_bar import print_progress_bar
 
-filename = r'data/CopyMetrics2022.xlsx'
+filename = r'data/выгрузка.xlsx'
 htmlfile = r'data/index.html'
 htmlfile_all_u = r'data/index_all.html'
 htmlfile_con_u = r'data/index_conversed.html'
@@ -21,7 +21,8 @@ all_id = {'3': '', '4': '',
           '47': '119690419', '49': '128708563', '50': '128708566', '52': '188721370', '53': '228873339',
           '54': '156370684', '57': '227367599', '58': '227367600',
           '60': '227368982', '61': '227368983', '62': '227368984', '63': '227368985', '64': '227368986',
-          '65': '227392707', '66': '227392776'}
+          '65': '227392707', '66': '227392776', '68': '231551918', '69': '231551919', '71': '231791794',
+          '72': '231791795', '73': '231791796', '74': '231791797', '75': '231791798'}
 
 
 def read_index():
@@ -33,7 +34,6 @@ def read_index():
     soup_3 = BeautifulSoup(src_3, 'lxml')
 
     try:
-        print("Поиск по ключу '3'...")
         element_3 = \
             soup_3.find_all('td', class_='data-table__cell data-table__cell_body_yes data-table__cell_type_metric')[1]
         num = ''.join(item for item in element_3.text if item in '0123456789')
@@ -48,10 +48,9 @@ def read_index():
     soup_4 = BeautifulSoup(src_4, 'lxml')
 
     try:
-        print("Поиск по ключу '4'...")
         element_4 = \
             soup_4.find_all('td', class_='data-table__cell data-table__cell_body_yes data-table__cell_type_metric')[4]
-        num = ''.join(item for item in element_4.text if item in '0123456789')
+        num = ''.join(i for i in element_4.text if i in '0123456789')
         metrics['4'] = num
     except Exception:
         metrics['4'] = ''
@@ -59,8 +58,8 @@ def read_index():
 
     # Поиск остальных ключей
     with open(htmlfile, encoding='utf-8') as file:
-        src = file.read()
-    soup = BeautifulSoup(src, 'lxml')
+        src1 = file.read()
+    soup = BeautifulSoup(src1, 'lxml')
 
     for key, dataid in all_id.items():
         try:
@@ -69,18 +68,19 @@ def read_index():
             element = soup.find('tr', {'data-id': f'{dataid}'}).find(
                 class_='conversion-report__goal-metric-row_type_visits').find('td',
                                                                               class_='conversion-report__goal-metric-row-right')
-            num = ''.join(item for item in element.text if item in '0123456789')
+            num = ''.join(i for i in element.text if i in '0123456789')
             metrics[key] = num
-            print_progress_bar(int(key), 67)
-        except Exception:
+            # print_progress_bar(int(key), 67)
+        except Exception as ex:
+            print(ex)
             metrics[key] = ''
             print(f'{key} значение не найдено...')
     return metrics
 
 
-def edit_file(day):
+def edit_file(day: str):
     book = openpyxl.load_workbook(filename=filename)
-    sheet = book.active
+    sheet = book.index()
     metrics = read_index()
     len_of = len(metrics)
 
@@ -105,10 +105,20 @@ def edit_file(day):
 
 
 if __name__ == '__main__':
-    try:
-        day = str(input('За какой день нужна выгрузка? '))
-        selenium_ym.parse_metrics(day, month='02')
-        edit_file(day)
-        print('Success!')
-    except Exception as ex:
-        print(f'\n{"-" * 10}ОШИБКА{"-" * 10}\n{ex}')
+    # try:
+    #     day = str(input('За какой день нужна выгрузка? '))
+    #     selenium_ym.parse_metrics(day, month='02')
+    #     edit_file(day)
+    #     print('Success!')
+    # except Exception as ex:
+    #     print(f'\n{"-" * 10}ОШИБКА{"-" * 10}\n{ex}')
+    for item in range(18, 21):
+        print(f'Дата -------> {item}')
+        if 9 >= item >= 1:
+            item = f'0{item}'
+        try:
+            selenium_ym.parse_metrics(item, month='03')
+            edit_file(day=str(item))
+        except Exception as ex:
+            print(f'0\n{"-" * 10}ОШИБКА{"-" * 10}\n{ex}')
+    print(f'{"-" * 10}Done!{"-" * 10}')
