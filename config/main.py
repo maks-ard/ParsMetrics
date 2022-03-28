@@ -1,12 +1,10 @@
 import openpyxl
 from bs4 import BeautifulSoup
-import selenium_ym
+from selenium_ym import Base
 from progress_bar import print_progress_bar
 
 filename = r'data/выгрузка.xlsx'
-htmlfile = r'data/index.html'
-htmlfile_all_u = r'data/index_all.html'
-htmlfile_con_u = r'data/index_conversed.html'
+
 
 all_id = {'3': '', '4': '',
           '6': '224297277', '7': '224639723', '8': '224834768', '9': '150874963', '11': '55411018', '12': '55411021',
@@ -25,8 +23,11 @@ all_id = {'3': '', '4': '',
           '72': '231791795', '73': '231791796', '74': '231791797', '75': '231791798'}
 
 
-def read_index():
+def read_index(day: str):
     metrics = {}
+    htmlfile = fr'data/source_pages/date_{day}.html'
+    htmlfile_all_u = fr'data/source_pages/all_{day}.html'
+    htmlfile_con_u = fr'data/source_pages/conv_{day}.html'
 
     # Поиск по ключу 3
     with open(htmlfile_all_u, encoding='utf-8') as file:
@@ -36,7 +37,7 @@ def read_index():
     try:
         element_3 = \
             soup_3.find_all('td', class_='data-table__cell data-table__cell_body_yes data-table__cell_type_metric')[1]
-        num = ''.join(item for item in element_3.text if item in '0123456789')
+        num = ''.join(i for i in element_3.text if i in '0123456789')
         metrics['3'] = num
     except Exception:
         metrics['3'] = ''
@@ -71,8 +72,7 @@ def read_index():
             num = ''.join(i for i in element.text if i in '0123456789')
             metrics[key] = num
             # print_progress_bar(int(key), 67)
-        except Exception as ex:
-            print(ex)
+        except Exception:
             metrics[key] = ''
             print(f'{key} значение не найдено...')
     return metrics
@@ -105,20 +105,22 @@ def edit_file(day: str):
 
 
 if __name__ == '__main__':
-    # try:
-    #     day = str(input('За какой день нужна выгрузка? '))
-    #     selenium_ym.parse_metrics(day, month='02')
-    #     edit_file(day)
-    #     print('Success!')
-    # except Exception as ex:
-    #     print(f'\n{"-" * 10}ОШИБКА{"-" * 10}\n{ex}')
+    base = Base('01')
+    base.autho_ym()
+    for date in range(18, 21):
+        print(f'Закрузка файла -------> {date}')
+
+        if 9 >= date >= 1:
+            item = f'0{date}'
+
+        base.parse(str(date))
+
     for item in range(18, 21):
-        print(f'Дата -------> {item}')
+        print(f'Запись файла -------> {item}')
+
         if 9 >= item >= 1:
             item = f'0{item}'
-        try:
-            selenium_ym.parse_metrics(item, month='03')
-            edit_file(day=str(item))
-        except Exception as ex:
-            print(f'0\n{"-" * 10}ОШИБКА{"-" * 10}\n{ex}')
+
+        edit_file(str(item))
+
     print(f'{"-" * 10}Done!{"-" * 10}')
