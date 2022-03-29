@@ -12,6 +12,7 @@ try:
         base.autho_ym()
         base.parse(start_day, month='03')
         main.edit_file(str(start_day))
+        base.exit()
     else:
         base.autho_ym()
         for date in range(start_day, int(end_day) + 1):
