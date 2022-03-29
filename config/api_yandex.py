@@ -6,23 +6,68 @@ Callback URL: https://oauth.yandex.ru/verification_code
 Дата создания: 29.03.2022
 """
 
-import requests
 import json
+
+import requests
+
+
+def save_json(obj):
+    with open('responce1.json', 'w', encoding='utf-8') as file:
+        json.dump(obj, file, indent=4, ensure_ascii=False)
+
+
+def save_html(obj):
+    with open('responce.html', 'w', encoding='utf-8') as file:
+        file.write(obj)
+
 
 TOKEN = "AQAAAABaprzMAAfIkr1IL8KgfEqppqmoi30MEUs"
 
 headers = {'Authorization': f'OAuth {TOKEN}'}
 
 
-params = {
-    "is_retargeting": 1
-}
+def get_users():
+    params = {
+        'metrics': f'ym:s:users',
+        'ids': 19405381,
+        'date1': 'yesterday',
+        'date2': 'yesterday'
+    }
 
-response = requests.get('https://api-metrika.yandex.net/management/v1/counter/19405381/goals', headers=headers, params=params)
-goals = response.json()
+    response = requests.get('https://api-metrika.yandex.net/stat/v1/data', headers=headers, params=params)
+    users = response.json()
+    all_users = int(users["totals"][0])
+    print(all_users)
 
-for goal in goals["goals"]:
-    if goal["is_retargeting"] == 1:
-        print(goal["name"])
-# with open('responce.json', 'w', encoding='utf-8') as file:
-#     json.dump(goals, file, indent=4, ensure_ascii=False)
+
+def get_visits(id_goal):
+    params = {
+        'metrics': f'ym:s:goa{id_goal}users',
+        'ids': 19405381,
+        'date1': 'yesterday',
+        'date2': 'yesterday'
+    }
+
+    response = requests.get('https://api-metrika.yandex.net/stat/v1/data', headers=headers, params=params)
+    users = response.json()
+    # all_users = int(users["totals"][0])
+    print(users)
+
+
+def get_counters():
+    results = {}
+    response = requests.get('https://api-metrika.yandex.net/management/v1/counter/19405381/goals', headers=headers)
+    goals = response.json()
+    save_json(goals)
+    for goal in goals["goals"]:
+        if goal["is_retargeting"] == 1:
+            results[goal["name"]] = goal["id"]
+    print(results)
+
+
+def main():
+    get_visits(32946132)
+
+
+if __name__ == '__main__':
+    main()

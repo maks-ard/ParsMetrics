@@ -1,0 +1,3345 @@
+{
+    "goals": [
+        {
+            "id": 32946132,
+            "name": "Посетил ЛК",
+            "type": "url",
+            "default_price": 0.0,
+            "is_retargeting": 1,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "regexp",
+                    "url": "(/personal/$)|(/personal/\\?.*)"
+                }
+            ]
+        },
+        {
+            "id": 40008475,
+            "name": "Оформление простого займа (главная страница)",
+            "type": "url",
+            "default_price": 0.0,
+            "is_retargeting": 0,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "regexp",
+                    "url": "/spasibo/(.*)target=mainzaimy"
+                }
+            ]
+        },
+        {
+            "id": 40008466,
+            "name": "Оформление простого займа /products/zaimy/",
+            "type": "url",
+            "default_price": 0.0,
+            "is_retargeting": 0,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "regexp",
+                    "url": "/spasibo/(.*)target=zaimy"
+                }
+            ]
+        },
+        {
+            "id": 149072920,
+            "name": "Оформление Займа «Под ноль»",
+            "type": "url",
+            "default_price": 0.0,
+            "is_retargeting": 0,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "regexp",
+                    "url": "/spasibo/(.*)target=zaimpodnol"
+                }
+            ]
+        },
+        {
+            "id": 40008427,
+            "name": "Оформление долгосрочного займа (главная страница)",
+            "type": "url",
+            "default_price": 0.0,
+            "is_retargeting": 0,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "regexp",
+                    "url": "/spasibo/(.*)target=maindolgosrochnyy"
+                }
+            ]
+        },
+        {
+            "id": 144272299,
+            "name": "Заявка на рефинансирование",
+            "type": "url",
+            "default_price": 0.0,
+            "is_retargeting": 0,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "regexp",
+                    "url": "/spasibo/(.*)target=mainrefinancing-sps"
+                }
+            ]
+        },
+        {
+            "id": 147884104,
+            "name": "Переход на ПТС (Fire Button)",
+            "type": "action",
+            "default_price": 0.0,
+            "is_retargeting": 0,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "exact",
+                    "url": "jumpPTS"
+                }
+            ]
+        },
+        {
+            "id": 40008412,
+            "name": "Оформление долгосрочного займа /products/dolgosrochnyy-zaym/",
+            "type": "url",
+            "default_price": 0.0,
+            "is_retargeting": 0,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "regexp",
+                    "url": "/spasibo/(.*)target=dolgosrochnyy"
+                }
+            ]
+        },
+        {
+            "id": 40008502,
+            "name": "Оформление пенсионного займа (главная страница)",
+            "type": "url",
+            "default_price": 0.0,
+            "is_retargeting": 0,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "regexp",
+                    "url": "/spasibo/(.*)target=mainpensionnyy"
+                }
+            ]
+        },
+        {
+            "id": 40008487,
+            "name": "Оформление пенсионного займа /products/pensionnyy-zaym/",
+            "type": "url",
+            "default_price": 0.0,
+            "is_retargeting": 0,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "regexp",
+                    "url": "/spasibo/(.*)target=pensionnyy"
+                }
+            ]
+        },
+        {
+            "id": 143250085,
+            "name": "Подписка на блог",
+            "type": "form",
+            "default_price": 0.0,
+            "is_retargeting": 0,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "form_id",
+                    "url": "bx_2442143489_20728727"
+                },
+                {
+                    "type": "form_xpath",
+                    "url": "FAA2"
+                }
+            ]
+        },
+        {
+            "id": 45616539,
+            "name": "Оформление займа Неделя даром /products/nedelja-darom-zaym/",
+            "type": "url",
+            "default_price": 0.0,
+            "is_retargeting": 0,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "regexp",
+                    "url": "/spasibo/(.*)target=free-week"
+                }
+            ]
+        },
+        {
+            "id": 56401351,
+            "name": "Оформление Легкий займ /products/legkiy-zaim/",
+            "type": "url",
+            "default_price": 0.0,
+            "is_retargeting": 0,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "regexp",
+                    "url": "/spasibo/(.*)target=legkiy"
+                }
+            ]
+        },
+        {
+            "id": 45637521,
+            "name": "Переход на сайт ЛовиЗайм",
+            "type": "action",
+            "default_price": 0.0,
+            "is_retargeting": 0,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "exact",
+                    "url": "goLoviZaim"
+                }
+            ]
+        },
+        {
+            "id": 63605098,
+            "name": "Закрытие полоски уведомлений",
+            "type": "action",
+            "default_price": 0.0,
+            "is_retargeting": 0,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "exact",
+                    "url": "closeNotify"
+                }
+            ]
+        },
+        {
+            "id": 63102115,
+            "name": "Дубли заявок",
+            "type": "url",
+            "default_price": 0.0,
+            "is_retargeting": 0,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "start",
+                    "url": "https://centrofinans.ru/disapproved/"
+                }
+            ]
+        },
+        {
+            "id": 50922149,
+            "name": "поиск по сайту",
+            "type": "step",
+            "default_price": 0.0,
+            "is_retargeting": 0,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "steps": [
+                {
+                    "id": 50922151,
+                    "name": "открытие формы",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 0,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 0,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "openSearch"
+                        }
+                    ]
+                },
+                {
+                    "id": 50922153,
+                    "name": "ввод символов",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 0,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 50922151,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "keyPressSearch"
+                        }
+                    ]
+                },
+                {
+                    "id": 50922155,
+                    "name": "переход по результатам",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 0,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 50922153,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "goToResultSearch"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 57320479,
+            "name": "Оформление займа (/landing1/)",
+            "type": "url",
+            "default_price": 0.0,
+            "is_retargeting": 0,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "regexp",
+                    "url": "/spasibo/(.*)target=zaimylanding1"
+                }
+            ]
+        },
+        {
+            "id": 53190675,
+            "name": "Лэндинг долгосрочный займ",
+            "type": "url",
+            "default_price": 0.0,
+            "is_retargeting": 0,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "regexp",
+                    "url": "/spasibo/(.*)target=landingdolgosrochnyy"
+                }
+            ]
+        },
+        {
+            "id": 32855259,
+            "name": "Калькулятор",
+            "type": "step",
+            "default_price": 0.0,
+            "is_retargeting": 0,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "steps": [
+                {
+                    "id": 32855262,
+                    "name": "Начал заполнять",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 0,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "calcStart"
+                        }
+                    ]
+                },
+                {
+                    "id": 32855265,
+                    "name": "Оформил",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 32855262,
+                    "conditions": [
+                        {
+                            "type": "start",
+                            "url": "https://centrofinans.ru/spasibo/"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 58691374,
+            "name": "Переход на новый дизайн",
+            "type": "action",
+            "default_price": 0.0,
+            "is_retargeting": 0,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "exact",
+                    "url": "goTmplNew"
+                }
+            ]
+        },
+        {
+            "id": 58691371,
+            "name": "Переход на старый дизайн",
+            "type": "action",
+            "default_price": 0.0,
+            "is_retargeting": 0,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "exact",
+                    "url": "goTmplOld"
+                }
+            ]
+        },
+        {
+            "id": 64037086,
+            "name": "еОСАГО переход",
+            "type": "action",
+            "default_price": 0.0,
+            "is_retargeting": 0,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "exact",
+                    "url": "outbound_click"
+                }
+            ]
+        },
+        {
+            "id": 95819374,
+            "name": "Перешел на оплату Сбер",
+            "type": "action",
+            "default_price": 0.0,
+            "is_retargeting": 0,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "exact",
+                    "url": "sber"
+                }
+            ]
+        },
+        {
+            "id": 95819491,
+            "name": "Перешел на оплату Корона",
+            "type": "action",
+            "default_price": 0.0,
+            "is_retargeting": 0,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "exact",
+                    "url": "crown"
+                }
+            ]
+        },
+        {
+            "id": 95820361,
+            "name": "Переход на оплату ЛК",
+            "type": "action",
+            "default_price": 0.0,
+            "is_retargeting": 0,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "exact",
+                    "url": "lkab"
+                }
+            ]
+        },
+        {
+            "id": 97854070,
+            "name": "начал оформлять ОЗ в ЛК",
+            "type": "action",
+            "default_price": 0.0,
+            "is_retargeting": 0,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "exact",
+                    "url": "ozstartlk"
+                }
+            ]
+        },
+        {
+            "id": 97854175,
+            "name": "Оформил ОЗ в ЛК",
+            "type": "action",
+            "default_price": 0.0,
+            "is_retargeting": 0,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "exact",
+                    "url": "ozlk"
+                }
+            ]
+        },
+        {
+            "id": 56633425,
+            "name": "Переходы с таблицы на главной",
+            "type": "step",
+            "default_price": 0.0,
+            "is_retargeting": 0,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "steps": [
+                {
+                    "id": 56633428,
+                    "name": "Переход с таблицы",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 0,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 0,
+                    "conditions": [
+                        {
+                            "type": "contain",
+                            "url": "?from=promotable"
+                        }
+                    ]
+                },
+                {
+                    "id": 56697571,
+                    "name": "Оформил с таблицы",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 0,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 56633428,
+                    "conditions": [
+                        {
+                            "type": "start",
+                            "url": "https://centrofinans.ru/spasibo/"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 40008517,
+            "name": "Оформление первого займа /order/",
+            "type": "url",
+            "default_price": 0.0,
+            "is_retargeting": 0,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "regexp",
+                    "url": "/spasibo/(.*)target=order"
+                }
+            ]
+        },
+        {
+            "id": 38639276,
+            "name": "WhereToGo",
+            "type": "action",
+            "default_price": 0.0,
+            "is_retargeting": 0,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "exact",
+                    "url": "outsite"
+                }
+            ]
+        },
+        {
+            "id": 62073739,
+            "name": "Оформление займа «Новогодний» /products/novogodniy-zaem/",
+            "type": "url",
+            "default_price": 0.0,
+            "is_retargeting": 0,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "regexp",
+                    "url": "/spasibo/(.*)target=novogodniyzaem"
+                }
+            ]
+        },
+        {
+            "id": 224297223,
+            "name": "Авторизация KeyCloac",
+            "type": "step",
+            "default_price": 0.0,
+            "is_retargeting": 1,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "steps": [
+                {
+                    "id": 224297277,
+                    "name": "Клик по кнопке ЛК",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 0,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "openLk"
+                        }
+                    ]
+                },
+                {
+                    "id": 224639723,
+                    "name": "Нажал \"Продолжить\"",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 224297277,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "buttonClickSubmit"
+                        }
+                    ]
+                },
+                {
+                    "id": 224834768,
+                    "name": "Зашёл в ЛК",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 224639723,
+                    "conditions": [
+                        {
+                            "type": "start",
+                            "url": "https://centrofinans.ru/personal/"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 150874963,
+            "name": "Мы незнакомы",
+            "type": "action",
+            "default_price": 0.0,
+            "is_retargeting": 1,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "exact",
+                    "url": "unknownUserForm"
+                }
+            ]
+        },
+        {
+            "id": 55411015,
+            "name": "Оплата в ЛК",
+            "type": "step",
+            "default_price": 0.0,
+            "is_retargeting": 1,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "steps": [
+                {
+                    "id": 55411018,
+                    "name": "Нажал на кнопку \"Внести платёж\"",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 0,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "paymentStart"
+                        }
+                    ]
+                },
+                {
+                    "id": 55411021,
+                    "name": "Подтвердил сумму платежа",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 55411018,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "paymentGoPayservice"
+                        }
+                    ]
+                },
+                {
+                    "id": 114998911,
+                    "name": "перешёл на страницу \"Успешная оплата\"",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 55411021,
+                    "conditions": [
+                        {
+                            "type": "start",
+                            "url": "https://centrofinans.ru/personal/payment-success/"
+                        }
+                    ]
+                },
+                {
+                    "id": 114998914,
+                    "name": "Нажал \"Готово\" в окне успешной оплаты",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 114998911,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "paymentOk"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 102628279,
+            "name": "Онлайн заём в ЛК",
+            "type": "step",
+            "default_price": 0.0,
+            "is_retargeting": 1,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "steps": [
+                {
+                    "id": 102628633,
+                    "name": "Нажал на кнопку \"Получить деньги\"",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 0,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "takeLoanIntent"
+                        }
+                    ]
+                },
+                {
+                    "id": 102628636,
+                    "name": "Кликнул все чекбоксы, нажал \"Начать оформление\"",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 102628633,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "takeLoanStart"
+                        }
+                    ]
+                },
+                {
+                    "id": 102628642,
+                    "name": "Шаг 2 \"Выбор карты\"",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 102628636,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "takeLoanCards"
+                        }
+                    ]
+                },
+                {
+                    "id": 102628645,
+                    "name": "Шаг 3 \"Подписать договор\"",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 102628642,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "takeLoanSubmit"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 102675931,
+            "name": "Продление займа в ЛК",
+            "type": "step",
+            "default_price": 0.0,
+            "is_retargeting": 1,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "steps": [
+                {
+                    "id": 102677101,
+                    "name": "Кликнул \"Продлить заём\"",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 0,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "extensionLoanStart"
+                        }
+                    ]
+                },
+                {
+                    "id": 102677104,
+                    "name": "Ввёл код, нажал \"Продолжить\"",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 102677101,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "extensionLoanCode"
+                        }
+                    ]
+                },
+                {
+                    "id": 102677107,
+                    "name": "Нажал \"Внести платёж\"",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 102677104,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "extensionLoanPay"
+                        }
+                    ]
+                },
+                {
+                    "id": 102677110,
+                    "name": "Страница \"Деньги успешно зачислены\"",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 102677107,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "extensionLoanSuccess"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 199430233,
+            "name": "Продление с Мультиполисом",
+            "type": "step",
+            "default_price": 0.0,
+            "is_retargeting": 1,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "steps": [
+                {
+                    "id": 199430449,
+                    "name": "Кликнул \"Продлить заём\"",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 0,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "extensionLoanStart"
+                        }
+                    ]
+                },
+                {
+                    "id": 199430452,
+                    "name": "Чекбокс и кнопка \"Подписать\" нажаты",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 199430449,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "certificateChecked"
+                        }
+                    ]
+                },
+                {
+                    "id": 199430455,
+                    "name": "Нажал \"Внести платёж\"",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 199430452,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "extensionLoanPay"
+                        }
+                    ]
+                },
+                {
+                    "id": 199430458,
+                    "name": "Страница \"Деньги успешно зачислены\"",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 199430455,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "extensionLoanSuccess"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 196198924,
+            "name": "Автоцель: возврат из платежной системы",
+            "type": "payment_system",
+            "default_price": 0.0,
+            "is_retargeting": 1,
+            "goal_source": "auto",
+            "is_favorite": 0
+        },
+        {
+            "id": 167642947,
+            "name": "Voice auth",
+            "type": "step",
+            "default_price": 0.0,
+            "is_retargeting": 1,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "steps": [
+                {
+                    "id": 167643286,
+                    "name": "Открылось окно авторизации",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 0,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "voiceAuthOpen"
+                        }
+                    ]
+                },
+                {
+                    "id": 167643289,
+                    "name": "Ввёл код",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 167643286,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "voiceCodeInputEnd"
+                        }
+                    ]
+                },
+                {
+                    "id": 167643292,
+                    "name": "Нажал кнопку \"Проверить код\"",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 167643289,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "voiceAuthSubmit"
+                        }
+                    ]
+                },
+                {
+                    "id": 168294223,
+                    "name": "Успешный войс, вошёл в ЛК",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 167643292,
+                    "conditions": [
+                        {
+                            "type": "start",
+                            "url": "https://centrofinans.ru/personal/"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 101217211,
+            "name": "Сменить телефон в ЛК",
+            "type": "action",
+            "default_price": 0.0,
+            "is_retargeting": 1,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "exact",
+                    "url": "toChangePhone"
+                }
+            ]
+        },
+        {
+            "id": 156505501,
+            "name": "Заявка из окна авторизации",
+            "type": "action",
+            "default_price": 0.0,
+            "is_retargeting": 1,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "exact",
+                    "url": "authRequestLoan"
+                }
+            ]
+        },
+        {
+            "id": 158922628,
+            "name": "СМС в авторизации повторная",
+            "type": "action",
+            "default_price": 0.0,
+            "is_retargeting": 1,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "exact",
+                    "url": "resendCode"
+                }
+            ]
+        },
+        {
+            "id": 101322850,
+            "name": "Бронирование в ЛК",
+            "type": "step",
+            "default_price": 0.0,
+            "is_retargeting": 1,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "steps": [
+                {
+                    "id": 101322853,
+                    "name": "Начал бронирование",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 0,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "reserveTo"
+                        }
+                    ]
+                },
+                {
+                    "id": 101322856,
+                    "name": "Заполнил данные бронирования",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 101322853,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "reserveBookUp"
+                        }
+                    ]
+                },
+                {
+                    "id": 101322859,
+                    "name": "Успешно забронировался",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 101322856,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "reserveOk"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 101328361,
+            "name": "Отказ от бронирования в ЛК",
+            "type": "step",
+            "default_price": 0.0,
+            "is_retargeting": 1,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "steps": [
+                {
+                    "id": 101328364,
+                    "name": "Нет, спасибо",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 0,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "reserveReject"
+                        }
+                    ]
+                },
+                {
+                    "id": 101328367,
+                    "name": "Указал причину отказа",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 101328364,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "reserveRejectReason"
+                        }
+                    ]
+                },
+                {
+                    "id": 101328370,
+                    "name": "Отказ от брони",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 101328367,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "reserveOk"
+                        }
+                    ]
+                },
+                {
+                    "id": 101328373,
+                    "name": "Ошибка при отказе",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 101328370,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "reserveError"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 146128744,
+            "name": "Закрыл бронирование",
+            "type": "action",
+            "default_price": 0.0,
+            "is_retargeting": 1,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "exact",
+                    "url": "reserveClose"
+                }
+            ]
+        },
+        {
+            "id": 119690419,
+            "name": "Оформлена доп услуга в ЛК",
+            "type": "action",
+            "default_price": 0.0,
+            "is_retargeting": 1,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "exact",
+                    "url": "paymentInsurance"
+                }
+            ]
+        },
+        {
+            "id": 128708218,
+            "name": "Добавление карты в ЛК",
+            "type": "step",
+            "default_price": 0.0,
+            "is_retargeting": 1,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "steps": [
+                {
+                    "id": 128708563,
+                    "name": "Нажал Добавить карту",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 0,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "clickAddCardStart"
+                        }
+                    ]
+                },
+                {
+                    "id": 128708566,
+                    "name": "Карта успешно добавлена",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 128708563,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "clickAddCard"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 188721316,
+            "name": "Добавить карту в профиле",
+            "type": "step",
+            "default_price": 0.0,
+            "is_retargeting": 1,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "steps": [
+                {
+                    "id": 188721367,
+                    "name": "Открыл профиль",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 0,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "openProfilePage"
+                        }
+                    ]
+                },
+                {
+                    "id": 188721370,
+                    "name": "Нажал Добавить карту в профиле",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 188721367,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "addCardStart"
+                        }
+                    ]
+                },
+                {
+                    "id": 228873339,
+                    "name": "Карта добавлена в профиле",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 188721370,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "addCardDone"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 156370684,
+            "name": "Какая-то ошибка в авторизации",
+            "type": "action",
+            "default_price": 0.0,
+            "is_retargeting": 1,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "exact",
+                    "url": "authSomeErrorOrConnection"
+                }
+            ]
+        },
+        {
+            "id": 178139712,
+            "name": "ЛК недоступен (ТБ)",
+            "type": "action",
+            "default_price": 0.0,
+            "is_retargeting": 1,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "exact",
+                    "url": "LKNotAvailableError"
+                }
+            ]
+        },
+        {
+            "id": 223182738,
+            "name": "Перекредитование с оплатой",
+            "type": "step",
+            "default_price": 0.0,
+            "is_retargeting": 1,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "steps": [
+                {
+                    "id": 223182851,
+                    "name": "Клик в перекредитование",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 0,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "refinancingClick"
+                        }
+                    ]
+                },
+                {
+                    "id": 223182852,
+                    "name": "Прочитал условия + допики",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 223182851,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "refinancingStart"
+                        }
+                    ]
+                },
+                {
+                    "id": 223182853,
+                    "name": "Согласился с условиями, подписал АСП",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 223182852,
+                    "conditions": [
+                        {
+                            "type": "contain_action",
+                            "url": "refinancingConfirm"
+                        }
+                    ]
+                },
+                {
+                    "id": 223182854,
+                    "name": "Нажал кнопку Оплатить в окне оплаты",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 223182853,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "refinancingPay"
+                        }
+                    ]
+                },
+                {
+                    "id": 223182855,
+                    "name": "Успешно перекредитовался",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 223182854,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "refinancingThanks"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 223182999,
+            "name": "Перекредитование без оплаты",
+            "type": "step",
+            "default_price": 0.0,
+            "is_retargeting": 1,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "steps": [
+                {
+                    "id": 223183000,
+                    "name": "Клик в перекредитование",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 0,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "refinancingClick"
+                        }
+                    ]
+                },
+                {
+                    "id": 223183001,
+                    "name": "Прочитал условия + допики",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 223183000,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "refinancingStart"
+                        }
+                    ]
+                },
+                {
+                    "id": 223183002,
+                    "name": "Согласился с условиями, подписал АСП",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 223183001,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "refinancingConfirm"
+                        }
+                    ]
+                },
+                {
+                    "id": 223183004,
+                    "name": "Успешно перекредитовался",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 223183002,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "refinancingThanks"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 192924337,
+            "name": "В заявку через Госуслуги",
+            "type": "step",
+            "default_price": 0.0,
+            "is_retargeting": 1,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "steps": [
+                {
+                    "id": 192924406,
+                    "name": "Клик в Госуслуги",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 0,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "publickServicesTransition"
+                        }
+                    ]
+                },
+                {
+                    "id": 192924409,
+                    "name": "Переход в заявку «Заём под ноль»",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 192924406,
+                    "conditions": [
+                        {
+                            "type": "start",
+                            "url": "https://centrofinans.ru/products/zaim-pod-nol/"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 192924052,
+            "name": "Вход через Госуслуги Успех",
+            "type": "step",
+            "default_price": 0.0,
+            "is_retargeting": 1,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "steps": [
+                {
+                    "id": 192924400,
+                    "name": "Кликнул в Госуслуги",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 0,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "publickServicesTransition"
+                        }
+                    ]
+                },
+                {
+                    "id": 192924403,
+                    "name": "Вошёл в ЛК",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 192924400,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "authEsiaSuccess"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 207194929,
+            "name": "Вход через Госуслуги Неуспех",
+            "type": "step",
+            "default_price": 0.0,
+            "is_retargeting": 1,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "steps": [
+                {
+                    "id": 207195379,
+                    "name": "Кликнул в Госуслуги",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 0,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "publickServicesTransition"
+                        }
+                    ]
+                },
+                {
+                    "id": 207195382,
+                    "name": "Ошибка авторизации ЕСИА",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 207195379,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "authEsiaFailure"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 101217205,
+            "name": "Забыл пароль в ЛК",
+            "type": "action",
+            "default_price": 0.0,
+            "is_retargeting": 1,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "exact",
+                    "url": "forgotPassword"
+                }
+            ]
+        },
+        {
+            "id": 155550199,
+            "name": "Звонок в офис, когда недоступен заём",
+            "type": "action",
+            "default_price": 0.0,
+            "is_retargeting": 1,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "exact",
+                    "url": "callToOffice"
+                }
+            ]
+        },
+        {
+            "id": 124045237,
+            "name": "Wrong date open",
+            "type": "action",
+            "default_price": 0.0,
+            "is_retargeting": 1,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "exact",
+                    "url": "specifiedDatesAction"
+                }
+            ]
+        },
+        {
+            "id": 124045759,
+            "name": "Wrong date выбор даты",
+            "type": "action",
+            "default_price": 0.0,
+            "is_retargeting": 1,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "exact",
+                    "url": "specifiedDatesSelect"
+                }
+            ]
+        },
+        {
+            "id": 124045975,
+            "name": "Wrong date close",
+            "type": "action",
+            "default_price": 0.0,
+            "is_retargeting": 1,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "exact",
+                    "url": "specifiedDatesDecline"
+                }
+            ]
+        },
+        {
+            "id": 151446850,
+            "name": "Клик \"Заказать справку\"",
+            "type": "action",
+            "default_price": 0.0,
+            "is_retargeting": 1,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "exact",
+                    "url": "getCertificateOnCLick"
+                }
+            ]
+        },
+        {
+            "id": 151456369,
+            "name": "Заказ справки – Успешно",
+            "type": "action",
+            "default_price": 0.0,
+            "is_retargeting": 1,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "exact",
+                    "url": "getCertificateSuccess"
+                }
+            ]
+        },
+        {
+            "id": 151446955,
+            "name": "Скачал справку",
+            "type": "action",
+            "default_price": 0.0,
+            "is_retargeting": 1,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "exact",
+                    "url": "downloadCertificateOnClick"
+                }
+            ]
+        },
+        {
+            "id": 151446904,
+            "name": "Отправил справку на e-mail",
+            "type": "action",
+            "default_price": 0.0,
+            "is_retargeting": 1,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "exact",
+                    "url": "sendCertificateToEmail"
+                }
+            ]
+        },
+        {
+            "id": 151447051,
+            "name": "Скачал справку в Истории займов",
+            "type": "action",
+            "default_price": 0.0,
+            "is_retargeting": 1,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "exact",
+                    "url": "onClickCertificateInHistory"
+                }
+            ]
+        },
+        {
+            "id": 151449991,
+            "name": "Ошибка получения справки (модалка)",
+            "type": "action",
+            "default_price": 0.0,
+            "is_retargeting": 1,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "exact",
+                    "url": "showModalError"
+                }
+            ]
+        },
+        {
+            "id": 131593387,
+            "name": "Гипотеза Cancel",
+            "type": "action",
+            "default_price": 0.0,
+            "is_retargeting": 0,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "exact",
+                    "url": "financialPlanCancel"
+                }
+            ]
+        },
+        {
+            "id": 131593411,
+            "name": "Гипотеза Yes",
+            "type": "action",
+            "default_price": 0.0,
+            "is_retargeting": 0,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "exact",
+                    "url": "financialPlanYes"
+                }
+            ]
+        },
+        {
+            "id": 131593426,
+            "name": "Гипотеза No",
+            "type": "action",
+            "default_price": 0.0,
+            "is_retargeting": 0,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "exact",
+                    "url": "financialPlanNo"
+                }
+            ]
+        },
+        {
+            "id": 140906197,
+            "name": "Посетил рефинансирование",
+            "type": "url",
+            "default_price": 0.0,
+            "is_retargeting": 0,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "contain",
+                    "url": "/products/refinansirovanie/"
+                },
+                {
+                    "type": "contain",
+                    "url": "https://centrofinans.ru/products/refinansirovanie/"
+                }
+            ]
+        },
+        {
+            "id": 147248125,
+            "name": "ОЗ простой главная",
+            "type": "step",
+            "default_price": 0.0,
+            "is_retargeting": 0,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "steps": [
+                {
+                    "id": 147386335,
+                    "name": "Клик по кнопке \"Оформление заявки\"",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 0,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 0,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "first"
+                        }
+                    ]
+                },
+                {
+                    "id": 147386338,
+                    "name": "Начал заполнять",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 0,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 147386335,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "chooseLoan"
+                        }
+                    ]
+                },
+                {
+                    "id": 147386341,
+                    "name": "Оформил заявку",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 0,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 147386338,
+                    "conditions": [
+                        {
+                            "type": "contain",
+                            "url": "/spasibo"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 147386569,
+            "name": "ОЗ долгосрочный главная",
+            "type": "step",
+            "default_price": 0.0,
+            "is_retargeting": 0,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "steps": [
+                {
+                    "id": 147386572,
+                    "name": "Клик по кнопке \"Оформление заявки",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 0,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 0,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "long"
+                        }
+                    ]
+                },
+                {
+                    "id": 147386575,
+                    "name": "Начал заполнять",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 0,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 147386572,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "chooseLoan"
+                        }
+                    ]
+                },
+                {
+                    "id": 147386578,
+                    "name": "Оформил",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 0,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 147386575,
+                    "conditions": [
+                        {
+                            "type": "contain",
+                            "url": "/spasibo"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 147386818,
+            "name": "ОЗ пенсионный главная",
+            "type": "step",
+            "default_price": 0.0,
+            "is_retargeting": 0,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "steps": [
+                {
+                    "id": 147386821,
+                    "name": "Клик по кнопке \"Оформление заявки\"",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 0,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 0,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "pens1"
+                        }
+                    ]
+                },
+                {
+                    "id": 147386824,
+                    "name": "Начал заполнять",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 0,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 147386821,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "chooseLoan"
+                        }
+                    ]
+                },
+                {
+                    "id": 147386827,
+                    "name": "Оформил",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 0,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 147386824,
+                    "conditions": [
+                        {
+                            "type": "contain",
+                            "url": "/spasibo"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 104956312,
+            "name": "Транши",
+            "type": "step",
+            "default_price": 0.0,
+            "is_retargeting": 1,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "steps": [
+                {
+                    "id": 104956369,
+                    "name": "Нажал кнопку \"Подать заявку\"",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 0,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "takeTrancheIntent"
+                        }
+                    ]
+                },
+                {
+                    "id": 104956372,
+                    "name": "Нажал кнопку \"Получить деньги\"",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 104956369,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "takeTrancheSubmit"
+                        }
+                    ]
+                },
+                {
+                    "id": 104959750,
+                    "name": "Успех",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 104956372,
+                    "conditions": [
+                        {
+                            "type": "start",
+                            "url": "https://centrofinans.ru/personal/"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 163300813,
+            "name": "Мультиполис заявка",
+            "type": "step",
+            "default_price": 0.0,
+            "is_retargeting": 1,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "steps": [
+                {
+                    "id": 163301125,
+                    "name": "Клик в баннер",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 0,
+                    "conditions": [
+                        {
+                            "type": "regexp_action",
+                            "url": "onClickBanner"
+                        }
+                    ]
+                },
+                {
+                    "id": 163301128,
+                    "name": "Заказал мультик",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 163301125,
+                    "conditions": [
+                        {
+                            "type": "contain_action",
+                            "url": "sendRequest"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 155875546,
+            "name": "Сгенерировать пароль",
+            "type": "action",
+            "default_price": 0.0,
+            "is_retargeting": 1,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "exact",
+                    "url": "passwordGen"
+                }
+            ]
+        },
+        {
+            "id": 120192112,
+            "name": "Оплата по короткой ссылке",
+            "type": "url",
+            "default_price": 0.0,
+            "is_retargeting": 1,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "start",
+                    "url": "https://centrofinans.ru/#paydone"
+                }
+            ]
+        },
+        {
+            "id": 149095969,
+            "name": "Гипотеза модалка \"Согласился продлить\"",
+            "type": "action",
+            "default_price": 0.0,
+            "is_retargeting": 1,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "exact",
+                    "url": "extendLoan"
+                }
+            ]
+        },
+        {
+            "id": 149096647,
+            "name": "Гипотеза модалка \"Решил оплатить\"",
+            "type": "action",
+            "default_price": 0.0,
+            "is_retargeting": 1,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "exact",
+                    "url": "closeLoan"
+                }
+            ]
+        },
+        {
+            "id": 158130580,
+            "name": "Оформлен договор (офлайн)",
+            "type": "action",
+            "default_price": 0.0,
+            "is_retargeting": 0,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "exact",
+                    "url": "contract"
+                }
+            ]
+        },
+        {
+            "id": 158130814,
+            "name": "Оформлен договор с НК (офлайн)",
+            "type": "action",
+            "default_price": 0.0,
+            "is_retargeting": 0,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "exact",
+                    "url": "contractNK"
+                }
+            ]
+        },
+        {
+            "id": 135917245,
+            "name": "Клики в номер телефона",
+            "type": "phone",
+            "default_price": 0.0,
+            "is_retargeting": 0,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [],
+            "hide_phone_number": false
+        },
+        {
+            "id": 135917167,
+            "name": "Клики в почту",
+            "type": "email",
+            "default_price": 0.0,
+            "is_retargeting": 0,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": []
+        },
+        {
+            "id": 162024067,
+            "name": "Поиск по сайту Яндекс",
+            "type": "search",
+            "default_price": 0.0,
+            "is_retargeting": 0,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "flag": "",
+            "conditions": [
+                {
+                    "type": "search",
+                    "url": "q,text,query,search"
+                }
+            ]
+        },
+        {
+            "id": 162024124,
+            "name": "Скачивание файлов Яндекс",
+            "type": "file",
+            "default_price": 0.0,
+            "is_retargeting": 0,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "flag": "",
+            "conditions": [
+                {
+                    "type": "all_files",
+                    "url": ""
+                }
+            ]
+        },
+        {
+            "id": 8337805,
+            "name": "Оформление заявки",
+            "type": "action",
+            "default_price": 0.0,
+            "is_retargeting": 1,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "flag": "order",
+            "conditions": [
+                {
+                    "type": "exact",
+                    "url": "ORDER"
+                }
+            ]
+        },
+        {
+            "id": 57753991,
+            "name": "Оформление займа ПТС",
+            "type": "action",
+            "default_price": 0.0,
+            "is_retargeting": 1,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "exact",
+                    "url": "goMailSendpts"
+                }
+            ]
+        },
+        {
+            "id": 60687322,
+            "name": "Оформление заявки ПТС с лэндинга",
+            "type": "action",
+            "default_price": 0.0,
+            "is_retargeting": 1,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "exact",
+                    "url": "goMailSendLandpts"
+                }
+            ]
+        },
+        {
+            "id": 65929861,
+            "name": "ПТС thankyou2",
+            "type": "url",
+            "default_price": 0.0,
+            "is_retargeting": 1,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "regexp",
+                    "url": "/thankyou/(.*)target=zaempts&nocdn"
+                }
+            ]
+        },
+        {
+            "id": 66134206,
+            "name": "ПТС-Landind thankyou",
+            "type": "url",
+            "default_price": 0.0,
+            "is_retargeting": 1,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "regexp",
+                    "url": "/thankyou/(.*)target=landingpts&nocdn"
+                }
+            ]
+        },
+        {
+            "id": 67822753,
+            "name": "Авторизация в ЛК",
+            "type": "step",
+            "default_price": 0.0,
+            "is_retargeting": 1,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "steps": [
+                {
+                    "id": 67822789,
+                    "name": "Клик по кнопке ЛК",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 0,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "openLk"
+                        }
+                    ]
+                },
+                {
+                    "id": 67822792,
+                    "name": "Ввёл № телефона",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 67822789,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "numberPhoneSuccess"
+                        }
+                    ]
+                },
+                {
+                    "id": 67822795,
+                    "name": "Нажал в чекбокс",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 67822792,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "checkboxClick"
+                        }
+                    ]
+                },
+                {
+                    "id": 67822798,
+                    "name": "Нажал кнопку Продолжить",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 67822795,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "buttonClickSubmit"
+                        }
+                    ]
+                },
+                {
+                    "id": 67822801,
+                    "name": "Успешный вход в ЛК",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 67822798,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "authSuccess"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 101216587,
+            "name": "Регистрация в ЛК",
+            "type": "step",
+            "default_price": 0.0,
+            "is_retargeting": 1,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "steps": [
+                {
+                    "id": 101216590,
+                    "name": "Клик по кнопке ЛК",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 0,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "openLk"
+                        }
+                    ]
+                },
+                {
+                    "id": 101216593,
+                    "name": "Ввёл проверочный код",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 101216590,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "codeSuccess"
+                        }
+                    ]
+                },
+                {
+                    "id": 101216596,
+                    "name": "Нажал Войти",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 101216593,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "buttonClickSubmit"
+                        }
+                    ]
+                },
+                {
+                    "id": 101216599,
+                    "name": "Ввёл пароль",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 101216596,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "passwordSuccess"
+                        }
+                    ]
+                },
+                {
+                    "id": 101216602,
+                    "name": "Успешный вход в ЛК",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 101216599,
+                    "conditions": [
+                        {
+                            "type": "regexp_action",
+                            "url": "authSuccess"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 173806333,
+            "name": "Автоцель: переход в мессенджер",
+            "type": "messenger",
+            "default_price": 0.0,
+            "is_retargeting": 0,
+            "goal_source": "auto",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "flag": "",
+            "conditions": [
+                {
+                    "type": "messenger",
+                    "url": "all_messengers"
+                }
+            ]
+        },
+        {
+            "id": 168294130,
+            "name": "Авторизация NEW",
+            "type": "step",
+            "default_price": 0.0,
+            "is_retargeting": 1,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "steps": [
+                {
+                    "id": 168294226,
+                    "name": "Клик по кнопке ЛК",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 0,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "openLk"
+                        }
+                    ]
+                },
+                {
+                    "id": 168294229,
+                    "name": "Нажал \"Продолжить\"",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 168294226,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "buttonClickSubmit"
+                        }
+                    ]
+                },
+                {
+                    "id": 168294232,
+                    "name": "Успешный вход в ЛК",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 168294229,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "authSuccess"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 168295516,
+            "name": "Регистрация NEW",
+            "type": "step",
+            "default_price": 0.0,
+            "is_retargeting": 1,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "steps": [
+                {
+                    "id": 168295783,
+                    "name": "Клик по кнопке ЛК",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 0,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "openLk"
+                        }
+                    ]
+                },
+                {
+                    "id": 168295786,
+                    "name": "Проверочный код смс или войс принят сервером",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 168295783,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "codeAccepted"
+                        }
+                    ]
+                },
+                {
+                    "id": 168295789,
+                    "name": "Ввёл пароль",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 168295786,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "sendNewPassword"
+                        }
+                    ]
+                },
+                {
+                    "id": 168295792,
+                    "name": "Успешный вход в ЛК",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 168295789,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "authSuccess"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 23693175,
+            "name": "Оформление онлайн заявки.",
+            "type": "url",
+            "default_price": 0.0,
+            "is_retargeting": 1,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "start",
+                    "url": "https://centrofinans.ru/spasibo/"
+                }
+            ]
+        },
+        {
+            "id": 183746710,
+            "name": "Гипотеза \"Хочу больше денег\"",
+            "type": "step",
+            "default_price": 0.0,
+            "is_retargeting": 1,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "steps": [
+                {
+                    "id": 183746713,
+                    "name": "клик в \"Хочу больше денег\"",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 0,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "moremoney"
+                        }
+                    ]
+                },
+                {
+                    "id": 183746716,
+                    "name": "Заявка отправлена",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 183746713,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "sendmoremoney"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 185817919,
+            "name": "Гипотеза \"Хочу больше денег2\"",
+            "type": "step",
+            "default_price": 0.0,
+            "is_retargeting": 1,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "steps": [
+                {
+                    "id": 185817922,
+                    "name": "клик в \"Хочу больше денег2\"",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 0,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "moremoney2"
+                        }
+                    ]
+                },
+                {
+                    "id": 185817925,
+                    "name": "Заявка отправлена2",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 185817922,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "sendmoremoney2"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 196198921,
+            "name": "Автоцель: переход в соц.сеть",
+            "type": "social",
+            "default_price": 0.0,
+            "is_retargeting": 0,
+            "goal_source": "auto",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "flag": "",
+            "conditions": [
+                {
+                    "type": "all_social",
+                    "url": ""
+                }
+            ]
+        },
+        {
+            "id": 53183961,
+            "name": "Лэндинг срочный займ",
+            "type": "url",
+            "default_price": 0.0,
+            "is_retargeting": 1,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "regexp",
+                    "url": "/spasibo/(.*)target=landingzaimy"
+                }
+            ]
+        },
+        {
+            "id": 122185236,
+            "name": "Посетители страницы Займ ПТС",
+            "type": "url",
+            "default_price": 0.0,
+            "is_retargeting": 1,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "start",
+                    "url": "https://centrofinans.ru/products/zaim-pod-pts/"
+                }
+            ]
+        },
+        {
+            "id": 137846920,
+            "name": "Просмотр 3х страниц",
+            "type": "number",
+            "default_price": 0.0,
+            "is_retargeting": 1,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "depth": 3
+        },
+        {
+            "id": 228788935,
+            "name": "Авторизация НК",
+            "type": "step",
+            "default_price": 0.0,
+            "is_retargeting": 1,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "steps": [
+                {
+                    "id": 228789050,
+                    "name": "НК прошёл проверки и попал в калькулятор выдачи",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 0,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "NKvisitCalculatorPage"
+                        }
+                    ]
+                },
+                {
+                    "id": 228789051,
+                    "name": "НК вошёл в ЛК",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 228789050,
+                    "conditions": [
+                        {
+                            "type": "start",
+                            "url": "https://centrofinans.ru/personal/"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 227367598,
+            "name": "Онлайн калькулятор для НК",
+            "type": "step",
+            "default_price": 0.0,
+            "is_retargeting": 1,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "steps": [
+                {
+                    "id": 227367599,
+                    "name": "Переход на калькулятор",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 0,
+                    "conditions": [
+                        {
+                            "type": "contain",
+                            "url": "/products/online-zayem-na-kartu/"
+                        }
+                    ]
+                },
+                {
+                    "id": 227367600,
+                    "name": "Оставил заявку",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 227367599,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "btnCalculatorNK"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 227368981,
+            "name": "Оформление заявки НК",
+            "type": "step",
+            "default_price": 0.0,
+            "is_retargeting": 1,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "steps": [
+                {
+                    "id": 227368982,
+                    "name": "Submit шага \"Паспортные данные\"",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 0,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "submitStepPassport"
+                        }
+                    ]
+                },
+                {
+                    "id": 227368983,
+                    "name": "Submit шага \"Фотография паспорта\"",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 227368982,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "submitStepPassportImage"
+                        }
+                    ]
+                },
+                {
+                    "id": 227368984,
+                    "name": "Submit шага \"Анкета\"",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 227368983,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "submitStepQuestionnaire"
+                        }
+                    ]
+                },
+                {
+                    "id": 227368985,
+                    "name": "Submit шага \"Банковская карта\"",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 227368984,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "submitStepBankCard"
+                        }
+                    ]
+                },
+                {
+                    "id": 227368986,
+                    "name": "Заявка успешно отправлена",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 227368985,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "stepCompleteSuccessSend"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 227392707,
+            "name": "Одобрен заём НК онлайн",
+            "type": "action",
+            "default_price": 0.0,
+            "is_retargeting": 1,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "exact",
+                    "url": "successLoanNK"
+                }
+            ]
+        },
+        {
+            "id": 227392776,
+            "name": "Оформлен договор с НК - онлайн",
+            "type": "action",
+            "default_price": 0.0,
+            "is_retargeting": 1,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "exact",
+                    "url": "successContractNK"
+                }
+            ]
+        },
+        {
+            "id": 157962715,
+            "name": "Страница спасибо общая",
+            "type": "url",
+            "default_price": 0.0,
+            "is_retargeting": 1,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "contain",
+                    "url": "/spasibo"
+                }
+            ]
+        },
+        {
+            "id": 231551917,
+            "name": "Рефинансирование Заявка в ЛК",
+            "type": "step",
+            "default_price": 0.0,
+            "is_retargeting": 1,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "steps": [
+                {
+                    "id": 231551918,
+                    "name": "Клик по кнопке на банере \"Оставить заявку\"",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 0,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "refinanceClickBanner"
+                        }
+                    ]
+                },
+                {
+                    "id": 231551919,
+                    "name": "В заявка Реф-ия клик на кнопку \"Оставить заявку\"",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 231551918,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "sendRefinanceRequest"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 231791793,
+            "name": "Рефинансирование Оформление в ЛК",
+            "type": "step",
+            "default_price": 0.0,
+            "is_retargeting": 1,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "steps": [
+                {
+                    "id": 231791794,
+                    "name": "Клик в одобренной заявке \"Продолжить оформление\"",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 0,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "refinanceСоntinue"
+                        }
+                    ]
+                },
+                {
+                    "id": 231791795,
+                    "name": "На странице \"Данные для проверки\" клик на кнопке \"Рефинансировать\"",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 231791794,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "refinanceStart"
+                        }
+                    ]
+                },
+                {
+                    "id": 231791796,
+                    "name": "Карта выбрана",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 231791795,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "takeLoanCards"
+                        }
+                    ]
+                },
+                {
+                    "id": 231791797,
+                    "name": "Просмотр Условий и АСП успешно, Нажал \"Подписать договор\"",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 231791796,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "refinanceConfirm"
+                        }
+                    ]
+                },
+                {
+                    "id": 231791798,
+                    "name": "Успешная загрузка страницы \"Спасибо\"",
+                    "type": "url",
+                    "default_price": 0.0,
+                    "is_retargeting": 1,
+                    "goal_source": "user",
+                    "is_favorite": 0,
+                    "prev_goal_id": 231791797,
+                    "conditions": [
+                        {
+                            "type": "action",
+                            "url": "refinanceThanks"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 232642999,
+            "name": "Переход в ЛК с Калькулатора (НЕ ТРОГАТЬ)",
+            "type": "action",
+            "default_price": 0.0,
+            "is_retargeting": 0,
+            "goal_source": "user",
+            "is_favorite": 0,
+            "prev_goal_id": 0,
+            "conditions": [
+                {
+                    "type": "exact",
+                    "url": "golk"
+                }
+            ]
+        }
+    ]
+}
