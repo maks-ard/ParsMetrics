@@ -7,6 +7,7 @@ Callback URL: https://oauth.yandex.ru/verification_code
 """
 import json
 import requests
+from progress.progress.bar import IncrementalBar
 
 TOKEN = "AQAAAABaprzMAAfIkr1IL8KgfEqppqmoi30MEUs"
 headers = {'Authorization': f'OAuth {TOKEN}'}
@@ -49,7 +50,10 @@ def get_visits(goals, date1='yesterday', date2='yesterday', id_counter=19405381)
 
 def main(date1='yesterday', date2='yesterday', id_counter=19405381):
     metrics["3"] = get_users(date1=date1, date2=date2, id_counter=id_counter)
+    bar = IncrementalBar('Парсинг данных', max=len(ids))
     for key, value in ids.items():
         metrics[key] = get_visits(f'ym:s:goal{value["id"]}visits', date1=date1, date2=date2, id_counter=id_counter)
+        bar.next()
+    bar.finish()
     return metrics
 

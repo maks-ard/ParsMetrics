@@ -1,6 +1,5 @@
 """Редактирует файл с id, если что то меняется в таблице"""
 import json
-import datetime
 import pandas as pd
 
 
