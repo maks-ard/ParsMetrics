@@ -1,31 +1,29 @@
 """Редактирует файл с id, если что то меняется в таблице"""
 import json
-import datetime
-import pandas as pd
 
 
-def delete_element_in_table(key_after: int):
-    with open(r'../data/ids.json', 'r') as file:
-        ids = json.load(file)
-        result = {}
-    for key, item in ids.items():
-        key = int(key)
-        if key > key_after:
-            key += 1
-            result[str(key)] = item
-        else:
-            result[str(key)] = item
+class Editor:
+    def __init__(self):
+        self.path = r'data/ids.json'
 
-    with open(r'../data/ids.json', 'w') as x:
-        json.dump(result, x, indent=4, ensure_ascii=False)
-
-
-def test():
-    daterange = pd.date_range('2022-02-24', '2022-03-13')
-    for single_date in daterange:
-        print(str(single_date.strftime("%Y-%m-%d")))
+    def delete_element_in_table(self, id_goal):
+        with open(self.path, 'r') as file:
+            ids = json.load(file)
+        try:
+            del ids[id_goal]
+        except KeyError:
+            pass
+        res = {}
+        for key, goal in ids.items():
+            key = int(key)
+            if key > int(id_goal):
+                key -= 1
+            res[key] = goal
+        with open(self.path, 'w') as result:
+            json.dump(res, result, indent=4, ensure_ascii=False)
 
 
 if __name__ == '__main__':
-    # delete_element_in_table(66)
-    test()
+    id_goal = input("Какую цель необходимо удалить?: ")
+    edit = Editor()
+    edit.delete_element_in_table(id_goal=id_goal)
