@@ -9,7 +9,10 @@ class Editor:
     def delete_element_in_table(self, id_goal):
         with open(self.path, 'r') as file:
             ids = json.load(file)
-        del ids[id_goal]
+        try:
+            del ids[id_goal]
+        except KeyError:
+            pass
         res = {}
         for key, goal in ids.items():
             key = int(key)
@@ -20,5 +23,7 @@ class Editor:
             json.dump(res, result, indent=4, ensure_ascii=False)
 
 
-edit = Editor()
-edit.delete_element_in_table(id_goal='10')
+if __name__ == '__main__':
+    id_goal = input("Какую цель необходимо удалить?: ")
+    edit = Editor()
+    edit.delete_element_in_table(id_goal=id_goal)
