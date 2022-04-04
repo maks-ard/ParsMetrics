@@ -1,6 +1,5 @@
 from config import writing_ecxel
 import pandas as pd
-from progress_bar import print_progress_bar
 
 
 def get_params():
@@ -14,7 +13,7 @@ def get_params():
 
     for date in daterange:
         date_now = str(date.strftime("%Y-%m-%d"))
-        writing_ecxel.edit_file(day=str(date.strftime("%d")), date1=date_now, date2=date_now)
+        writing_ecxel.edit_file(day=date.strftime("%d"), month=date.strftime('%m'), date1=date_now, date2=date_now)
 
 
 if __name__ == '__main__':
