@@ -17,7 +17,7 @@ class Editor:
         for key, goal in ids.items():
             key = int(key)
             if key > int(id_goal):
-                key += 1
+                key -= 1
             res[key] = goal
         with open(self.path, 'w') as result:
             json.dump(res, result, indent=4, ensure_ascii=False)
