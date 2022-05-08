@@ -48,6 +48,21 @@ def get_visits(goals, date1='yesterday', date2='yesterday', id_counter=19405381)
     return int(users["totals"][0])
 
 
+# def get_traffic(date1="2021-04-27", date2="2022-04-26", id_counter=19405381):
+    # params = {
+    #     'metrics': f'ym:s:visits',
+    #     'ids': id_counter,
+    #     'date1': date1,
+    #     'date2': date2,
+    #     "dimensions": "ym:s:datePeriodweek",
+    #     'sort': "-ym:s:visits",
+    #     "filters": "(ym:pv:URLParamNameAndValue=='office_device=tablet-gulkevichi-1') and ym:s:datePeriodmonth!n"
+    # }
+    # response = requests.get('https://api-metrika.yandex.net/stat/v1/data', headers=headers, params=params)
+    # users = response.json()
+    # print(users)
+
+
 def main(date1='yesterday', date2='yesterday', id_counter=19405381):
     metrics["3"] = get_users(date1=date1, date2=date2, id_counter=id_counter)
     bar = IncrementalBar('Парсинг данных', max=len(ids))
