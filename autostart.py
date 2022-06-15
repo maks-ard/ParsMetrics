@@ -7,6 +7,4 @@ def get_params():
 
 if __name__ == '__main__':
     get_params()
-
-    import os
-    os.startfile(r"C:\Users\m.ardeev\OneDrive - ООО Микрокредитная компания «Центрофинанс Групп»\Документы\Метрики2022КОПИЯ.xlsx")
+    writing_ecxel.start_file()
