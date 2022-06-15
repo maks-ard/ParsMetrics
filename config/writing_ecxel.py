@@ -1,6 +1,5 @@
 import json
 import openpyxl
-import platform
 from config import api_yandex
 from datetime import datetime, timedelta
 
@@ -10,15 +9,20 @@ all_month = {'01': 'Январь', '02': 'Февраль', '03': 'Март', '04
 
 
 def file_for_write():
-    work_pc = r"C:\Users\m.ardeev\OneDrive - ООО Микрокредитная компания«Центрофинанс Групп»\Документы\Метрики2022КОПИЯ.xlsx"
+    import platform
+    work_pc = r"C:\Users\m.ardeev\OneDrive - ООО Микрокредитная компания «Центрофинанс Групп»\Документы\Метрики2022КОПИЯ.xlsx"
     laptop = r"C:\Users\Центрофинанс\OneDrive - ООО Микрокредитная компания «Центрофинанс Групп»\Рабочий стол\OneDrive - ООО Микрокредитная компания «Центрофинанс Групп»\Документы\Метрики2022КОПИЯ.xlsx"
-    return laptop if platform.node() == "M-ARDEEV-N" else work_pc
+    if platform.node() == "M-ARDEEV-N":
+        return laptop
+    elif platform.node() == "WKS-IT-004":
+        return work_pc
+    else:
+        return input("Введите путь до ecxel файла: ")
 
 
 def start_file():
-    filename = file_for_write()
     import os
-    os.startfile(filename)
+    os.startfile(file_for_write())
 
 
 def edit_file(day=yesterday.strftime('%d'), month=yesterday.strftime('%m'), date1='yesterday', date2='yesterday'):
