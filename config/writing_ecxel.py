@@ -2,41 +2,50 @@ import json
 import openpyxl
 from config import api_yandex
 from datetime import datetime, timedelta
-
-yesterday = datetime.now() - timedelta(days=1)
-all_month = {'01': 'Январь', '02': 'Февраль', '03': 'Март', '04': 'Апрель', '05': 'Май', '06': 'Июнь',
-             '07': 'Июль', '08': 'Август', '09': 'Сентябрь', '10': 'Октябрь', '11': 'Ноябрь', '12': 'Декабрь'}
+from tkinter import filedialog, Tk
 
 
-def file_for_write():
-    import platform
-    work_pc = r"C:\Users\m.ardeev\OneDrive - ООО Микрокредитная компания «Центрофинанс Групп»\Документы\Метрики2022КОПИЯ.xlsx"
-    laptop = r"C:\Users\Центрофинанс\OneDrive - ООО Микрокредитная компания «Центрофинанс Групп»\Рабочий стол\OneDrive - ООО Микрокредитная компания «Центрофинанс Групп»\Документы\Метрики2022КОПИЯ.xlsx"
-    if platform.node() == "M-ARDEEV-N":
-        return laptop
-    elif platform.node() == "WKS-IT-004":
-        return work_pc
-    else:
-        return input("Введите путь до ecxel файла: ")
+def get_yesterday(day_or_month):
+    return (datetime.now() - timedelta(days=1)).strftime('%d') if day_or_month == "day" else (
+                datetime.now() - timedelta(days=1)).strftime('%m')
 
 
-def start_file():
+def start_file():  # открытие ecxel файла
     import os
     os.startfile(file_for_write())
 
 
-def edit_file(day=yesterday.strftime('%d'), month=yesterday.strftime('%m'), date1='yesterday', date2='yesterday'):
-    filename = file_for_write()
-    metrics = api_yandex.main(date1=date1, date2=date2)
-    book = openpyxl.load_workbook(filename=filename)
-    sheet = book[all_month[month]]
+def get_path_ecxel():  # открывает окно для выбора файла ecxel и возвращает полный путь
+    root = Tk()
+    root.attributes("-topmost", True)
+    root.lift()
+    root.withdraw()
+    return filedialog.askopenfilename()
 
-    with open(r'data/date_col.json') as col:
-        all_col = json.load(col)
 
-    col = all_col[day]
+def file_for_write():  # выбор пути, в зависимости от устройства
+    import platform
+    path_to_files = json.load(open(r"data/path_to_ecxel.json", encoding="utf-8"))
+    try:
+        return path_to_files[platform.node()]
+    except KeyError:
+        print("Выбери в какой файл записывать данные!")
+        name_pc = platform.node()
+        path = get_path_ecxel()
+        path_to_files[name_pc] = path
+        with open(r"data/path_to_ecxel.json", "w", encoding="utf-8") as file:
+            json.dump({name_pc: path}, file, indent=3, ensure_ascii=False)
+        return path
+
+
+def edit_file(day=get_yesterday("day"), month=get_yesterday("month"), date1='yesterday', date2='yesterday'):
+    filename = file_for_write()  # путь к ecxel файлу
+    metrics = api_yandex.main(date1=date1, date2=date2)  # выгруженные метрики
+    book = openpyxl.load_workbook(filename=filename)  # книга ecxel
+    sheet = book[json.load(open(r"data/name_sheet.json", encoding="utf-8"))[month]]  # нужный лист в ecxel
+    col = json.load(open(r'data/date_col.json', encoding="utf-8"))[day]  # нужная колонка
 
     for key, index in metrics.items():
         if index != '':
-            sheet[col + key] = int(index)
-    book.save(filename=filename)
+            sheet[col + key] = int(index)  # запись значения в ячейки
+    book.save(filename=filename)  # сохранение изменений
