@@ -1,5 +1,7 @@
-from config import writing_ecxel
+import time
 import pandas as pd
+
+from config import writing_ecxel
 
 
 def get_params():
@@ -17,5 +19,8 @@ def get_params():
 
 
 if __name__ == '__main__':
+    start_time = time.time()
     get_params()
     writing_ecxel.start_file()
+    finish_time = time.time() - start_time
+    print(f"TIME: {finish_time}")
