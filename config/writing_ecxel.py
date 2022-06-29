@@ -37,7 +37,7 @@ def file_for_write():  # выбор пути, в зависимости от у�
         path = get_path_ecxel()
         path_to_files[name_pc] = path
         with open(r"data/path_to_ecxel.json", "w", encoding="utf-8") as file:
-            json.dump({name_pc: path}, file, indent=3, ensure_ascii=False)
+            json.dump(path_to_files, file, indent=3, ensure_ascii=False)
         return path
 
 
