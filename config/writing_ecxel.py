@@ -1,11 +1,11 @@
 import json
 import platform
-
 import openpyxl
-from config import api_yandex_async
 
 from datetime import datetime, timedelta
 from tkinter import filedialog, Tk
+
+from config import api_yandex_async
 
 
 def get_yesterday(day_or_month):
@@ -15,6 +15,7 @@ def get_yesterday(day_or_month):
 
 def start_file():  # открытие ecxel файла
     import os
+
     os.startfile(file_for_write())
 
 
@@ -23,6 +24,7 @@ def get_path_ecxel():  # открывает окно для выбора фай�
     root.attributes("-topmost", True)
     root.lift()
     root.withdraw()
+
     return filedialog.askopenfilename()
 
 
@@ -31,8 +33,10 @@ def choice_file(path_to_files):
     name_pc = platform.node()
     path = get_path_ecxel()
     path_to_files[name_pc] = path
+
     with open(r"data/path_to_ecxel.json", "w", encoding="utf-8") as file:
         json.dump(path_to_files, file, indent=3, ensure_ascii=False)
+
     return path
 
 
@@ -40,13 +44,16 @@ def file_for_write():  # выбор пути, в зависимости от у�
     path_to_files = json.load(open(r"data/path_to_ecxel.json", encoding="utf-8"))
 
     try:
-        file = open(path_to_files[platform.node()])
+        file = open(path_to_files[platform.node()])  # проверяет корректность пути до файла и не открыт ли он
         file.close()
         return path_to_files[platform.node()]
+
     except KeyError:
         return choice_file()
+
     except FileNotFoundError:
         return choice_file(path_to_files)
+
     except PermissionError:
         import psutil
 
