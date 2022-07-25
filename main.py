@@ -1,4 +1,3 @@
-import os
 import time
 import pandas as pd
 
@@ -6,13 +5,19 @@ from config import writing_ecxel
 
 
 def get_params():
-    need_date = input("Нужна выгрузка за несколько дней?: ")
+    year = "2022"
+    need_date = input(f"!!!ВСЕ ДАТЫ ПРОПИСЫВАЮТСЯ В ФОРМАТЕ DD-MM-YYYY!!!\n"
+                      f"Год опционально, по-умолчанию стоит {year}\n"
+                      f"Напиши первую дату если нужна выгрузка за период, иначе нажми Enter: ")
     if need_date == "":
         writing_ecxel.edit_file()
     else:
-        start_date = input("Дата старта: ").split(" ")
-        stop_date = input("Дата окончания: ").split(" ")
-        daterange = pd.date_range(f'2022-{start_date[1]}-{start_date[0]}', f'2022-{stop_date[1]}-{stop_date[0]}')
+
+        start_date = need_date.split(" ")
+        stop_date = input("Дата окончания d-m-y: ").split(" ")
+        if start_date[2]:
+            year = start_date[2]
+        daterange = pd.date_range(f'{year}-{start_date[1]}-{start_date[0]}', f'{year}-{stop_date[1]}-{stop_date[0]}')
 
         for date in daterange:
             date_now = str(date.strftime("%Y-%m-%d"))
