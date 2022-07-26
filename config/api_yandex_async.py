@@ -5,11 +5,11 @@ Callback URL: https://oauth.yandex.ru/verification_code
 Время жизни токена: Не менее, чем 1 год
 Дата создания: 29.03.2022
 """
-import json
-
-import requests
 import asyncio
 import aiohttp
+import json
+import requests
+
 
 from progress.bar import IncrementalBar
 
@@ -24,6 +24,7 @@ with open('data/ids.json', 'r', encoding='utf-8') as ids_file:
 
 
 def get_users(date1='yesterday', date2='yesterday', id_counter=19405381):
+
     params = {
         'metrics': f'ym:s:users',
         'ids': id_counter,
@@ -65,9 +66,9 @@ async def get_visits(session, row, goals, date1='yesterday', date2='yesterday', 
 async def gather_data(date1='yesterday', date2='yesterday', id_counter=19405381):
     async with aiohttp.ClientSession() as session:
         tasks = []
-        for row, goal in ids.items():
+        for goal in ids:
             task = asyncio.create_task(
-                get_visits(session, row, f'ym:s:goal{goal["id"]}visits', date1=date1, date2=date2,
+                get_visits(session, goal["row"], f'ym:s:goal{goal["id"]}visits', date1=date1, date2=date2,
                            id_counter=id_counter))
             tasks.append(task)
         await asyncio.gather(*tasks)

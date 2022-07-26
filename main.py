@@ -6,7 +6,7 @@ from config import writing_ecxel
 
 def get_params():
     year = "2022"
-    need_date = input(f"!!!ВСЕ ДАТЫ ПРОПИСЫВАЮТСЯ В ФОРМАТЕ DD-MM-YYYY!!!\n"
+    need_date = input(f"!!!ВСЕ ДАТЫ ПРОПИСЫВАЮТСЯ В ФОРМАТЕ DD MM YYYY!!!\n"
                       f"Год опционально, по-умолчанию стоит {year}\n"
                       f"Напиши первую дату если нужна выгрузка за период, иначе нажми Enter: ")
     if need_date == "":
@@ -15,7 +15,7 @@ def get_params():
 
         start_date = need_date.split(" ")
         stop_date = input("Дата окончания d-m-y: ").split(" ")
-        if start_date[2]:
+        if len(start_date) == 3:
             year = start_date[2]
         daterange = pd.date_range(f'{year}-{start_date[1]}-{start_date[0]}', f'{year}-{stop_date[1]}-{stop_date[0]}')
 

@@ -75,5 +75,5 @@ def edit_file(day=get_yesterday("day"), month=get_yesterday("month"), date1='yes
 
     for key, index in metrics.items():
         if index != '':
-            sheet[col + key] = int(index)  # запись значения в ячейки
+            sheet[col + str(key)] = int(index)  # запись значения в ячейки
     book.save(filename=filename)  # сохранение изменений
