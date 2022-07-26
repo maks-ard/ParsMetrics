@@ -65,10 +65,12 @@ def file_for_write():  # выбор пути, в зависимости от у�
 
 def edit_file(day=get_yesterday("day"), month=get_yesterday("month"), date1='yesterday', date2='yesterday'):
     filename = file_for_write()  # путь к ecxel файлу
+    name_sheet_now = json.load(open(r"data/name_sheet.json", encoding="utf-8"))[month]  # текущий месяц
+
     metrics = api_yandex_async.main(date1=date1, date2=date2)  # выгруженные метрики
     book = openpyxl.load_workbook(filename=filename)  # книга ecxel
 
-    sheet = book[json.load(open(r"data/name_sheet.json", encoding="utf-8"))[month]]  # нужный лист в ecxel
+    sheet = book[name_sheet_now]  # нужный лист в ecxel
     col = json.load(open(r'data/date_col.json', encoding="utf-8"))[day]  # нужная колонка
 
     for key, index in metrics.items():
