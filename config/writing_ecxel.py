@@ -6,6 +6,7 @@ from datetime import datetime, timedelta
 from tkinter import filedialog, Tk
 
 from config import api_yandex_async
+from config.editor import GetIdRow
 
 
 def get_yesterday(day_or_month):
@@ -66,8 +67,9 @@ def file_for_write():  # выбор пути, в зависимости от у�
 def edit_file(day=get_yesterday("day"), month=get_yesterday("month"), date1='yesterday', date2='yesterday'):
     filename = file_for_write()  # путь к ecxel файлу
     name_sheet_now = json.load(open(r"data/name_sheet.json", encoding="utf-8"))[month]  # текущий месяц
+    ids = GetIdRow(filename).get_id_row()
 
-    metrics = api_yandex_async.main(date1=date1, date2=date2)  # выгруженные метрики
+    metrics = api_yandex_async.main(ids, date1=date1, date2=date2)  # выгруженные метрики
     book = openpyxl.load_workbook(filename=filename)  # книга ecxel
 
     sheet = book[name_sheet_now]  # нужный лист в ecxel

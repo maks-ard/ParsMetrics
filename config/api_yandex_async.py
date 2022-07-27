@@ -7,9 +7,7 @@ Callback URL: https://oauth.yandex.ru/verification_code
 """
 import asyncio
 import aiohttp
-import json
 import requests
-
 
 from progress.bar import IncrementalBar
 
@@ -19,12 +17,7 @@ metrics = {}
 count = 0
 
 
-with open('data/ids.json', 'r', encoding='utf-8') as ids_file:
-    ids = json.load(ids_file)
-
-
 def get_users(date1='yesterday', date2='yesterday', id_counter=19405381):
-
     params = {
         'metrics': f'ym:s:users',
         'ids': id_counter,
@@ -63,23 +56,25 @@ async def get_visits(session, row, goals, date1='yesterday', date2='yesterday', 
             await get_visits(session, row, goals, date1='yesterday', date2='yesterday', id_counter=19405381)
 
 
-async def gather_data(date1='yesterday', date2='yesterday', id_counter=19405381):
+async def gather_data(ids, date1='yesterday', date2='yesterday', id_counter=19405381):
     async with aiohttp.ClientSession() as session:
         tasks = []
-        for goal in ids:
+        for id_goal, row in ids.items():
             task = asyncio.create_task(
-                get_visits(session, goal["row"], f'ym:s:goal{goal["id"]}visits', date1=date1, date2=date2,
+                get_visits(session, row, f'ym:s:goal{id_goal}visits', date1=date1, date2=date2,
                            id_counter=id_counter))
             tasks.append(task)
         await asyncio.gather(*tasks)
 
 
-def main(date1='yesterday', date2='yesterday', id_counter=19405381):
+def main(ids, date1='yesterday', date2='yesterday', id_counter=19405381):
     global bar
     bar = IncrementalBar(f'Парсинг данных: {date1}', max=len(ids))
+
     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
-    asyncio.run(gather_data(date1=date1, date2=date2, id_counter=id_counter))
+    asyncio.run(gather_data(ids, date1=date1, date2=date2, id_counter=id_counter))
+
     metrics["3"] = get_users(date1=date1, date2=date2, id_counter=id_counter)
+
     bar.finish()
     return metrics
-
