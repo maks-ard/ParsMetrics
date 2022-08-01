@@ -16,6 +16,8 @@ headers = {'Authorization': f'OAuth {TOKEN}'}
 metrics = {}
 count = 0
 
+global bar
+
 
 def get_users(date1='yesterday', date2='yesterday', id_counter=19405381):
     params = {
@@ -40,24 +42,23 @@ async def get_visits(session, row, goals, date1='yesterday', date2='yesterday', 
         "dimensions": "ym:s:date",
         'sort': "ym:s:date"
     }
-    global count
-    count += 1
-    if count == 2:
-        await asyncio.sleep(1)
-        count = 0
     async with session.get('https://api-metrika.yandex.net/stat/v1/data', headers=headers, params=params) as response:
         users = await response.json()
-        try:
-            if int(users["totals"][0]) == 0:
-                metrics[row] = ''
+        if 200 <= response.status <= 399:
             metrics[row] = (users["totals"][0])
             bar.next()
-        except KeyError:
-            await get_visits(session, row, goals, date1='yesterday', date2='yesterday', id_counter=19405381)
+
+        elif response.status == 400:
+            print(f"Неверно задан параметр запроса:\nparams: {params}")
+            bar.next()
+
+        else:
+            response.raise_for_status()
 
 
 async def gather_data(ids, date1='yesterday', date2='yesterday', id_counter=19405381):
-    async with aiohttp.ClientSession() as session:
+    connector = aiohttp.TCPConnector(limit=3)  # Ограничивает количество параллельных запросов
+    async with aiohttp.ClientSession(connector=connector) as session:
         tasks = []
         for id_goal, row in ids.items():
             task = asyncio.create_task(
