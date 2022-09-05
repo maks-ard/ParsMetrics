@@ -2,6 +2,7 @@ import time
 import pandas as pd
 
 from config import writing_ecxel
+from config.editor import GetIdRow
 
 
 def get_params():
@@ -11,6 +12,15 @@ def get_params():
                       f"Напиши первую дату если нужна выгрузка за период, иначе нажми Enter: ")
     if need_date == "":
         writing_ecxel.edit_file()
+
+    elif need_date == "update":
+        editor = GetIdRow(writing_ecxel.file_for_write())
+        editor.update_date(writing_ecxel.name_sheet())
+        editor.update_formulas(writing_ecxel.name_sheet())
+
+    elif need_date == "test":
+        # GetIdRow(writing_ecxel.file_for_write()).update_formulas(writing_ecxel.name_sheet())
+        print("Тестов нет!")
     else:
 
         start_date = need_date.split(" ")

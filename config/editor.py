@@ -6,6 +6,8 @@ import pandas as pd
 from datetime import datetime
 from calendar import monthrange
 
+from config import writing_ecxel
+
 
 class GetIdRow:
     def __init__(self, filename):
@@ -27,6 +29,7 @@ class GetIdRow:
         """Получает id целей"""
         return {item[1]: item[0] for item in self.get_all_name_column("BR")}
 
+
     def copy_list(self, title=None):
         """Копирует лист для нового месяца"""
         if title is None:
@@ -40,16 +43,21 @@ class GetIdRow:
 
         self.book.save(self.filename)
 
-    def update_date(self, new_sheet, year: str = None, month: str = None):
+    def update_date(self, name_sheet: str = None, year: str = None, month: str = None):
         """Обновляет строки с датой на актуальные для листа
-        :param new_sheet: лист, где надо обновить даты
+        :param name_sheet: лист, где надо обновить даты
         :param year: str год формата yyyy
         :param month: str месяц формата mm"""
+
+        if name_sheet is None:
+            name_sheet = writing_ecxel.name_sheet()
 
         if month is None:
             month = datetime.now().strftime("%m")
         if year is None:
             year = datetime.now().year
+
+        sheet = self.book[name_sheet]
 
         days = monthrange(year, int(month))[1]
 
@@ -65,9 +73,38 @@ class GetIdRow:
 
         day = 0
         for item in result:
-            new_sheet[item + "1"] = daterange[day]
-            new_sheet[item + "67"] = daterange[day]
+            sheet[item + "1"] = daterange[day]
+            sheet[item + "73"] = daterange[day]
 
             day += 1
 
         self.book.save(self.filename)
+
+    def update_formulas(self, name_sheet: str = None, year: str = None, month: str = None):
+
+        if name_sheet is None:
+            name_sheet = writing_ecxel.name_sheet()
+
+        if month is None:
+            month = datetime.now().strftime("%m")
+        if year is None:
+            year = datetime.now().year
+
+        sheet = self.book[name_sheet]
+        days = monthrange(year, int(month))[1]
+
+        work_columns = {
+            29: ["BH", "BJ"],
+            30: ["BJ", "BL"],
+            31: ["BL", "BN"]
+        }
+
+        for column in work_columns[days]:
+            for cell in sheet[column]:
+                if cell.value is not None:
+                    if cell.value[0] == "=":
+                        result = ",".join(cell.value.split(",")[:-1]) + ")"
+                        sheet[cell.coordinate] = result
+
+        self.book.save(self.filename)
+

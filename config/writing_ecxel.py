@@ -50,7 +50,7 @@ def file_for_write():  # выбор пути, в зависимости от у�
         return path_to_files[platform.node()]
 
     except KeyError:
-        return choice_file()
+        return choice_file(path_to_files)
 
     except FileNotFoundError:
         return choice_file(path_to_files)
@@ -64,9 +64,15 @@ def file_for_write():  # выбор пути, в зависимости от у�
         return path_to_files[platform.node()]
 
 
+def name_sheet(month=None):
+    if month is None:
+        month = datetime.now().strftime("%m")
+    return json.load(open(r"data/name_sheet.json", encoding="utf-8"))[month]  # текущий месяц
+
+
 def edit_file(day=get_yesterday("day"), month=get_yesterday("month"), date1='yesterday', date2='yesterday'):
     filename = file_for_write()  # путь к ecxel файлу
-    name_sheet_now = json.load(open(r"data/name_sheet.json", encoding="utf-8"))[month]  # текущий месяц
+    name_sheet_now = name_sheet(month)
     ids = GetIdRow(filename).get_id_row()
 
     metrics = api_yandex_async.main(ids, date1=date1, date2=date2)  # выгруженные метрики
