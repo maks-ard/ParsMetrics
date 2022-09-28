@@ -10,6 +10,7 @@ import requests
 from progress.bar import IncrementalBar
 from config.privat_info import TOKEN
 
+URL = "https://api-metrika.yandex.net/stat/v1/data"
 headers = {'Authorization': f'OAuth {TOKEN}'}
 metrics = {}
 count = 0
@@ -25,7 +26,7 @@ def get_users(date1='yesterday', date2='yesterday', id_counter=19405381):
         'date2': date2
     }
 
-    response = requests.get('https://api-metrika.yandex.net/stat/v1/data', headers=headers, params=params)
+    response = requests.get(URL, headers=headers, params=params)
     users = response.json()
     all_users = int(users["totals"][0])
     return int(all_users)
@@ -40,7 +41,7 @@ async def get_visits(session, row, goals, date1='yesterday', date2='yesterday', 
         "dimensions": "ym:s:date",
         'sort': "ym:s:date"
     }
-    async with session.get('https://api-metrika.yandex.net/stat/v1/data', headers=headers, params=params) as response:
+    async with session.get(URL, headers=headers, params=params) as response:
         users = await response.json()
         if 200 <= response.status <= 399:
             metrics[row] = (users["totals"][0])
