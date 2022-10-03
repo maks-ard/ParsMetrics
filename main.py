@@ -1,8 +1,21 @@
+import logging
 import time
 import pandas as pd
 
 from config import writing_ecxel
 from config.editor import GetIdRow
+
+logger = logging.getLogger("main")
+logger.setLevel(logging.INFO)
+
+
+file_handler = logging.FileHandler(r"pars_metrics.log", mode="w")
+
+formatter = logging.Formatter("%(asctime)s | %(name)s | %(levelname)s | %(message)s")
+file_handler.setFormatter(formatter)
+
+logger.addHandler(file_handler)
+
 
 
 def get_params():
@@ -19,8 +32,9 @@ def get_params():
         editor.update_formulas(writing_ecxel.name_sheet())
 
     elif need_date == "test":
-        # GetIdRow(writing_ecxel.file_for_write()).update_formulas(writing_ecxel.name_sheet())
-        print("Тестов нет!")
+        logger.info("Тестовый запуск")
+        writing_ecxel.start_file(r"pars_metrics.log")
+
     else:
 
         start_date = need_date.split(" ")

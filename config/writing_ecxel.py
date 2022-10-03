@@ -14,10 +14,13 @@ def get_yesterday(day_or_month):
             datetime.now() - timedelta(days=1)).strftime('%m')
 
 
-def start_file():  # открытие ecxel файла
+def start_file(filename=None):  # открытие ecxel файла
     import os
-
-    os.startfile(file_for_write())
+    
+    if filename == None:
+        os.startfile(file_for_write())
+    else:
+        os.startfile(filename)
 
 
 def get_path_ecxel():  # открывает окно для выбора файла ecxel и возвращает полный путь

@@ -1,6 +1,7 @@
 """Редактирует файл с id, если что то меняется в таблице"""
 """В процессе"""
 import json
+import logging
 import openpyxl
 import pandas as pd
 from datetime import datetime
@@ -11,10 +12,11 @@ from config import writing_ecxel
 
 class GetIdRow:
     def __init__(self, filename):
-        self.path = r'data/ids — копия.json'
+        self.path = r"data/ids — копия.json"
         self.filename = filename
         self.book = openpyxl.load_workbook(self.filename)
         self.sheet = self.book["Август"]
+        self.logger = logging.getLogger("main")
 
     def get_all_name_column(self, col: str) -> list:
         """Возвращает полный список значение заданного столбца
@@ -28,7 +30,6 @@ class GetIdRow:
     def get_id_row(self):
         """Получает id целей"""
         return {item[1]: item[0] for item in self.get_all_name_column("BR")}
-
 
     def copy_list(self, title=None):
         """Копирует лист для нового месяца"""
@@ -81,6 +82,10 @@ class GetIdRow:
         self.book.save(self.filename)
 
     def update_formulas(self, name_sheet: str = None, year: str = None, month: str = None):
+        """Обновляет формулы для нужного количества дней 
+        в колонках Среднее в день и Сумма конверсий"""
+
+        self.logger.debug(f"update_formulas | name_sheet={name_sheet}")
 
         if name_sheet is None:
             name_sheet = writing_ecxel.name_sheet()
@@ -99,12 +104,31 @@ class GetIdRow:
             31: ["BL", "BN"]
         }
 
+        cell_for_formulas = ["BH", "BJ"]
+
+        self.logger.debug("sheet = {}, days = {}".format(sheet, days))
+
         for column in work_columns[days]:
+            
             for cell in sheet[column]:
+
+                self.logger.debug("cell.value = {}".format(cell.value))
+
                 if cell.value is not None:
+
                     if cell.value[0] == "=":
-                        result = ",".join(cell.value.split(",")[:-1]) + ")"
+                        base_formula = ",".join(cell.value.split(",")[:28])
+                        self.logger.debug("days = {}, type = {}".format(days, type(days)))
+
+                        if days == 29:
+                            result = base_formula + ")"
+                        elif days == 30:
+                            result = base_formula + f",{cell_for_formulas[0]}{cell.row})"
+                        else:
+                            result = base_formula + f",{cell_for_formulas[0]}{cell.row},{cell_for_formulas[1]}{cell.row})"
+
+                        self.logger.debug("{} -> {}".format(cell.coordinate, result))
+
                         sheet[cell.coordinate] = result
 
         self.book.save(self.filename)
-
