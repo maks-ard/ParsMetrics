@@ -6,10 +6,12 @@ Callback URL: https://oauth.yandex.ru/verification_code
 import asyncio
 import aiohttp
 import requests
+import logging
 
 from progress.bar import IncrementalBar
 from config.privat_info import TOKEN
 
+logger = logging.getLogger("main")
 URL = "https://api-metrika.yandex.net/stat/v1/data"
 headers = {'Authorization': f'OAuth {TOKEN}'}
 metrics = {}
@@ -48,7 +50,8 @@ async def get_visits(session, row, goals, date1='yesterday', date2='yesterday', 
             bar.next()
 
         elif response.status == 400:
-            print(f"Неверно задан параметр запроса:\nparams: {params}")
+            logger.warning(users)
+            logger.info(params)
             bar.next()
 
         else:

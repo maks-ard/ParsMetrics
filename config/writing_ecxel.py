@@ -1,12 +1,17 @@
 import json
 import platform
 import openpyxl
+import logging
+import traceback
+import psutil
 
 from datetime import datetime, timedelta
 from tkinter import filedialog, Tk
 
 from config import api_yandex_async
 from config.editor import GetIdRow
+
+logger = logging.getLogger("main")
 
 
 def get_yesterday(day_or_month):
@@ -16,7 +21,7 @@ def get_yesterday(day_or_month):
 
 def start_file(filename=None):  # открытие ecxel файла
     import os
-    
+
     if filename == None:
         os.startfile(file_for_write())
     else:
@@ -48,23 +53,16 @@ def file_for_write():  # выбор пути, в зависимости от у�
     path_to_files = json.load(open(r"data/path_to_ecxel.json", encoding="utf-8"))
 
     try:
+        for proc in psutil.process_iter():
+            if proc.name() == "EXCEL.EXE":
+                proc.kill()
         file = open(path_to_files[platform.node()])  # проверяет корректность пути до файла и не открыт ли он
         file.close()
         return path_to_files[platform.node()]
 
-    except KeyError:
+    except (KeyError, FileNotFoundError):
+        logger.error(traceback.format_exc())
         return choice_file(path_to_files)
-
-    except FileNotFoundError:
-        return choice_file(path_to_files)
-
-    except PermissionError:
-        import psutil
-
-        for proc in psutil.process_iter():
-            if proc.name() == "EXCEL.EXE":
-                proc.kill()
-        return path_to_files[platform.node()]
 
 
 def name_sheet(month=None):

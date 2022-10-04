@@ -1,5 +1,7 @@
 import logging
 import time
+import traceback
+
 import pandas as pd
 
 from config import writing_ecxel
@@ -8,14 +10,12 @@ from config.editor import GetIdRow
 logger = logging.getLogger("main")
 logger.setLevel(logging.INFO)
 
+file_handler = logging.FileHandler(r"data/pars_metrics.log")
 
-file_handler = logging.FileHandler(r"pars_metrics.log", mode="w")
-
-formatter = logging.Formatter("%(asctime)s | %(name)s | %(levelname)s | %(message)s")
+formatter = logging.Formatter("%(asctime)s : [%(levelname)s] [%(lineno)d] : %(message)s")
 file_handler.setFormatter(formatter)
 
 logger.addHandler(file_handler)
-
 
 
 def get_params():
@@ -49,8 +49,11 @@ def get_params():
 
 
 if __name__ == '__main__':
-    start_time = time.time()
-    get_params()
-    writing_ecxel.start_file()
-    finish_time = time.time() - start_time
-    print(f"TIME: {finish_time}")
+    try:
+        start_time = time.time()
+        get_params()
+        writing_ecxel.start_file()
+        finish_time = time.time() - start_time
+        print(f"TIME: {finish_time}")
+    except Exception:
+        logger.critical(traceback.format_exc())
