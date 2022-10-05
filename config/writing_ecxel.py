@@ -22,7 +22,7 @@ def get_yesterday(day_or_month):
 def start_file(filename=None):  # открытие ecxel файла
     import os
 
-    if filename == None:
+    if filename is None:
         os.startfile(file_for_write())
     else:
         os.startfile(filename)
