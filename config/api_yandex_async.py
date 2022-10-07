@@ -47,6 +47,7 @@ async def get_visits(session, row, goals, date1='yesterday', date2='yesterday', 
         users = await response.json()
         if 200 <= response.status <= 399:
             metrics[row] = (users["totals"][0])
+            metrics["date"] = users["query"]["date1"]
             bar.next()
 
         elif response.status == 400:
@@ -58,7 +59,7 @@ async def get_visits(session, row, goals, date1='yesterday', date2='yesterday', 
             response.raise_for_status()
 
 
-async def gather_data(ids, date1='yesterday', date2='yesterday', id_counter=19405381):
+async def gather_data(ids: dict, date1='yesterday', date2='yesterday', id_counter=19405381):
     connector = aiohttp.TCPConnector(limit=3)  # Ограничивает количество параллельных запросов
     async with aiohttp.ClientSession(connector=connector) as session:
         tasks = []
@@ -70,14 +71,14 @@ async def gather_data(ids, date1='yesterday', date2='yesterday', id_counter=1940
         await asyncio.gather(*tasks)
 
 
-def main(ids, date1='yesterday', date2='yesterday', id_counter=19405381):
+def main(ids: dict, date1='yesterday', date2='yesterday', id_counter=19405381, need_users=True):
     global bar
     bar = IncrementalBar(f'Парсинг данных: {date1}', max=len(ids))
 
     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
     asyncio.run(gather_data(ids, date1=date1, date2=date2, id_counter=id_counter))
-
-    metrics["3"] = get_users(date1=date1, date2=date2, id_counter=id_counter)
+    if need_users:
+        metrics["3"] = get_users(date1=date1, date2=date2, id_counter=id_counter)
 
     bar.finish()
     return metrics

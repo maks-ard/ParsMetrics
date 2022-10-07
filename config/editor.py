@@ -27,9 +27,9 @@ class GetIdRow:
         """Возвращает список целей, где нужно заполнять значения"""
         return [i for i in self.get_all_name_column("A") if i[1][-1] != ':']
 
-    def get_id_row(self):
+    def get_id_row(self, column):
         """Получает id целей"""
-        return {item[1]: item[0] for item in self.get_all_name_column("BR")}
+        return {item[1]: item[0] for item in self.get_all_name_column(column)}
 
     def copy_list(self, title=None):
         """Копирует лист для нового месяца"""

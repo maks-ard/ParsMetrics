@@ -10,7 +10,7 @@ from config.editor import GetIdRow
 logger = logging.getLogger("main")
 logger.setLevel(logging.INFO)
 
-file_handler = logging.FileHandler(r"data/pars_metrics.log")
+file_handler = logging.FileHandler(r"data/pars_metrics.log", mode="w")
 
 formatter = logging.Formatter("%(asctime)s : [%(levelname)s] [%(lineno)d] : %(message)s")
 file_handler.setFormatter(formatter)
@@ -31,9 +31,8 @@ def get_params():
         editor.update_date(writing_ecxel.name_sheet())
         editor.update_formulas(writing_ecxel.name_sheet())
 
-    elif need_date == "test":
-        logger.info("Тестовый запуск")
-        writing_ecxel.start_file(r"pars_metrics.log")
+    elif need_date == "refin":
+        writing_ecxel.write_goal_refinance()
 
     else:
 
@@ -52,7 +51,7 @@ if __name__ == '__main__':
     try:
         start_time = time.time()
         get_params()
-        writing_ecxel.start_file()
+        # writing_ecxel.start_file()
         finish_time = time.time() - start_time
         print(f"TIME: {finish_time}")
     except Exception:
