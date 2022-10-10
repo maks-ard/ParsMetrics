@@ -136,8 +136,8 @@ def do_offset_formulas(sheet, data, row):
 
 
 def write_goal_refinance():
-    filename = r"C:\Users\Центрофинанс\OneDrive - ООО Микрокредитная компания «Центрофинанс Групп»\Рабочий стол\OneDrive - ООО Микрокредитная компания «Центрофинанс Групп»\Документы\CR Перекредитование в ЛК.xlsx"
-    # filename = r"CR Перекредитование в ЛК.xlsx" # тестовый
+    # filename = r"C:\Users\Центрофинанс\OneDrive - ООО Микрокредитная компания «Центрофинанс Групп»\Рабочий стол\OneDrive - ООО Микрокредитная компания «Центрофинанс Групп»\Документы\CR Перекредитование в ЛК.xlsx"
+    filename = r"CR Перекредитование в ЛК.xlsx" # тестовый
     book = openpyxl.load_workbook(filename)
     data = get_ids_refin(book)
     data_formulas = get_ids_refin(book, is_comment=False)
