@@ -7,10 +7,8 @@ import pandas as pd
 from datetime import datetime
 from calendar import monthrange
 
-from config import writing_ecxel
 
-
-class GetIdRow:
+class EditorExcel:
     def __init__(self, filename):
         self.path = r"data/ids — копия.json"
         self.filename = filename

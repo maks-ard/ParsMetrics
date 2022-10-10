@@ -4,8 +4,7 @@ import traceback
 
 import pandas as pd
 
-from config import writing_ecxel
-from config.editor import GetIdRow
+from common.editor_excel import EditorExcel
 
 logger = logging.getLogger("main")
 logger.setLevel(logging.INFO)
@@ -27,15 +26,14 @@ def get_params():
         writing_ecxel.edit_file()
 
     elif need_date == "update":
-        editor = GetIdRow(writing_ecxel.file_for_write())
+        editor = EditorExcel(writing_ecxel.file_for_write())
         editor.update_date(writing_ecxel.name_sheet())
         editor.update_formulas(writing_ecxel.name_sheet())
 
     elif need_date == "refin":
-        writing_ecxel.write_goal_refinance()
+        writing_ecxel.main()
 
     else:
-
         start_date = need_date.split(" ")
         stop_date = input("Дата окончания d-m-y: ").split(" ")
         if len(start_date) == 3:
