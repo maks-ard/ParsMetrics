@@ -1,6 +1,7 @@
 import json
 import platform
 import openpyxl
+from openpyxl.styles.numbers import BUILTIN_FORMATS
 import logging
 import traceback
 import psutil
@@ -125,10 +126,10 @@ def do_offset_formulas(sheet, data, row):
         try:
             if type(cell_offset.value) is str:
                 if cell_offset.value[0] == "=":
+                    sheet[cell.coordinate] = cell_offset.value.replace(str(cell_offset_row), str(row))
+                    if "РСД" not in cell_offset.value:
+                        sheet[cell.coordinate].number_format = BUILTIN_FORMATS[9]
 
-                    result = cell_offset.value.replace(str(cell_offset_row), str(row))
-                    logger.info(f"{sheet}: {cell.coordinate}: {cell.value} --> {cell_offset.value.replace(str(cell_offset_row), str(row))}")
-                    sheet[cell.coordinate] = result
 
         except Exception:
             logger.error(traceback.format_exc())
@@ -136,6 +137,7 @@ def do_offset_formulas(sheet, data, row):
 
 def write_goal_refinance():
     filename = r"C:\Users\Центрофинанс\OneDrive - ООО Микрокредитная компания «Центрофинанс Групп»\Рабочий стол\OneDrive - ООО Микрокредитная компания «Центрофинанс Групп»\Документы\CR Перекредитование в ЛК.xlsx"
+    # filename = r"CR Перекредитование в ЛК.xlsx" # тестовый
     book = openpyxl.load_workbook(filename)
     data = get_ids_refin(book)
     data_formulas = get_ids_refin(book, is_comment=False)
@@ -156,7 +158,9 @@ def write_goal_refinance():
                 date_format = str(date.strftime("%Y-%m-%d"))
                 metrics = api_yandex_async.main(ids, date1=date_format, date2=date_format, need_users=False)
 
+                date: datetime
                 sheet[f"A{row + 1}"] = date + timedelta(days=1)
+                sheet[f"A{row + 1}"].number_format = "DD.MM.YYYY"
 
                 for col, goal in metrics.items():
                     if goal != "" and col != "date":
