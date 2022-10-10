@@ -9,7 +9,7 @@ import requests
 import logging
 
 from progress.bar import IncrementalBar
-from config.privat_info import TOKEN
+from common.privat_info import TOKEN
 
 logger = logging.getLogger("main")
 URL = "https://api-metrika.yandex.net/stat/v1/data"

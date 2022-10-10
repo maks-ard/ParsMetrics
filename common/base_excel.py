@@ -12,64 +12,39 @@ class BaseExcel:
 
     def __int__(self):
         self.logger = logging.getLogger("main")
+        self.__filepath = r"data/path_to_ecxel.json"
 
-    def get_yesterday(self, day_or_month):
-        return (datetime.now() - timedelta(days=1)).strftime('%d') if day_or_month == "day" else (
-                datetime.now() - timedelta(days=1)).strftime('%m')
+    @staticmethod
+    def get_yesterday() -> list[str]:
+        """Возвращает вчерашнюю дату списком [dd, mm, yyyy]"""
+        return (datetime.now() - timedelta(days=1)).strftime('%d.%m.%Y').split(".")
 
-    def get_path_ecxel(self):  # открывает окно для выбора файла ecxel и возвращает полный путь
-        root = Tk()
-        root.attributes("-topmost", True)
-        root.lift()
-        root.withdraw()
+    def start_file(self, filename):
+        """Открыть файл"""
+        os.startfile(self.get_filepath(filename))
 
-        return filedialog.askopenfilename()
-
-    def start_file(self, filename=None):  # открытие ecxel файла
-        if filename is None:
-            os.startfile(self.file_for_write())
-        else:
-            os.startfile(filename)
-
-
-
-    def choice_file(self, path_to_files):
-        print("Выбери в какой файл записывать данные!")
-        name_pc = platform.node()
-        path = self.get_path_ecxel()
-        path_to_files[name_pc] = path
-
-        with open(r"data/path_to_ecxel.json", "w", encoding="utf-8") as file:
-            json.dump(path_to_files, file, indent=3, ensure_ascii=False)
-
-        return path
-
-    def file_for_write(self):  # выбор пути, в зависимости от устройства
-        path_to_files = json.load(open(r"data/path_to_ecxel.json", encoding="utf-8"))
-
+    def get_filepath(self, filename: str) -> str:
+        """Получить путь до нужного файла"""
+        all_files = json.load(open(self.__filepath, encoding="utf-8"))
         try:
-            for proc in psutil.process_iter():
-                if proc.name() == "EXCEL.EXE":
-                    proc.kill()
-            file = open(path_to_files[platform.node()])  # проверяет корректность пути до файла и не открыт ли он
-            file.close()
-            return path_to_files[platform.node()]
+            return all_files[filename]
 
         except (KeyError, FileNotFoundError):
-            self.logger.error(traceback.format_exc())
-            return self.choice_file(path_to_files)
+            root = Tk()
+            root.attributes("-topmost", True)
+            root.lift()
+            root.withdraw()
 
-    def name_sheet(self, month=None):
-        if month is None:
-            month = datetime.now().strftime("%m")
-        return json.load(open(r"data/name_sheet.json", encoding="utf-8"))[month]  # текущий месяц
+            all_files[filename] = filedialog.askopenfilename()
 
-    def get_row_for_write(self, sheet):
-        rows = sheet.iter_rows(max_col=1)
-        result = ()
-        for row in rows:
-            for cell in row:
-                result = (cell.value, cell.row)
-                if cell.value is None:
-                    return cell.offset(row=-1).value, cell.offset(row=-1).row
-        return result
+            json.dump(all_files, open(self.__filepath, encoding="utf-8"), indent=4, ensure_ascii=False)
+
+            return filedialog.askopenfilename()
+
+        except PermissionError:
+            print("Файл для записи открыт!")
+
+        except Exception:
+            self.logger.critical(traceback.format_exc())
+
+

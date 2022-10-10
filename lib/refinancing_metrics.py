@@ -3,14 +3,27 @@ import openpyxl
 import traceback
 from datetime import datetime, timedelta
 
-from config import api_yandex_async
-from common import BaseExcel
+from openpyxl.styles.numbers import BUILTIN_FORMATS
+
+from common import BaseExcel, api_yandex_async
 
 
 class RefinancingExcel(BaseExcel):
     def __int__(self):
-        self.filename = r"C:\Users\Центрофинанс\OneDrive - ООО Микрокредитная компания «Центрофинанс Групп»\Рабочий стол\OneDrive - ООО Микрокредитная компания «Центрофинанс Групп»\Документы\CR Перекредитование в ЛК.xlsx"
+        self.filename = self.get_filepath("CR Перекредитование в ЛК")
         self.book = openpyxl.load_workbook(self.filename)
+
+    @staticmethod
+    def get_row_for_write(sheet):
+        """Получить ряд для записм данных"""
+        rows = sheet.iter_rows(max_col=1)
+        result = ()
+        for row in rows:
+            for cell in row:
+                result = (cell.value, cell.row)
+                if cell.value is None:
+                    return cell.offset(row=-1).value, cell.offset(row=-1).row
+        return result
 
     def get_ids_refinancing(self, is_comment=True):
         result = {}
@@ -38,9 +51,11 @@ class RefinancingExcel(BaseExcel):
                 if type(cell_offset.value) is str:
                     if cell_offset.value[0] == "=":
                         result = cell_offset.value.replace(str(cell_offset_row), str(row))
-                        self.logger.info(
-                            f"{sheet}: {cell.coordinate}: {cell.value} --> {cell_offset.value.replace(str(cell_offset_row), str(row))}")
+
                         sheet[cell.coordinate] = result
+
+                        if "РСД" not in cell_offset.value:
+                            sheet[cell.coordinate].number_format = BUILTIN_FORMATS[9]
 
             except Exception:
                 self.logger.error(traceback.format_exc())

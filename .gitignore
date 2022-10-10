@@ -2,5 +2,5 @@
 **/.idea/
 **/__pycache__/
 test.py
-/config/privat_info.py
+common/privat_info.py
 pars_metrics.log
