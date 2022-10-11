@@ -4,17 +4,25 @@ import traceback
 
 import pandas as pd
 
+from lib import GeneralMetrics, RefinancingExcel
 from common.editor_excel import EditorExcel
 
-logger = logging.getLogger("main")
-logger.setLevel(logging.INFO)
+general = GeneralMetrics()
+refinancing = RefinancingExcel(filename=r"tests/CR Перекредитование в ЛК.xlsx")
+editor = EditorExcel(general.get_filepath(general.filename))
+editor = EditorExcel(general.get_filepath(general.filename))
 
-file_handler = logging.FileHandler(r"data/pars_metrics.log", mode="w")
 
-formatter = logging.Formatter("%(asctime)s : [%(levelname)s] [%(lineno)d] : %(message)s")
-file_handler.setFormatter(formatter)
+def get_logger():
+    log = logging.getLogger("main")
+    log.setLevel(logging.INFO)
 
-logger.addHandler(file_handler)
+    file_handler = logging.FileHandler(r"data/pars_metrics.log", mode="w")
+
+    formatter = logging.Formatter("%(asctime)s : [%(levelname)s] [%(lineno)d] : %(message)s")
+    file_handler.setFormatter(formatter)
+
+    log.addHandler(file_handler)
 
 
 def get_params():
@@ -23,15 +31,14 @@ def get_params():
                       f"Год опционально, по-умолчанию стоит {year}\n"
                       f"Напиши первую дату если нужна выгрузка за период, иначе нажми Enter: ")
     if need_date == "":
-        writing_ecxel.edit_file()
+        general.main()
 
     elif need_date == "update":
-        editor = EditorExcel(writing_ecxel.file_for_write())
-        editor.update_date(writing_ecxel.name_sheet())
-        editor.update_formulas(writing_ecxel.name_sheet())
+        editor.update_date(general.name_sheet())
+        editor.update_formulas(general.name_sheet())
 
     elif need_date == "refin":
-        writing_ecxel.main()
+        refinancing.main()
 
     else:
         start_date = need_date.split(" ")
@@ -42,15 +49,23 @@ def get_params():
 
         for date in daterange:
             date_now = str(date.strftime("%Y-%m-%d"))
-            writing_ecxel.edit_file(day=date.strftime("%d"), month=date.strftime('%m'), date1=date_now, date2=date_now)
+            general.main(day=date.strftime("%d"), month=date.strftime('%m'), date1=date_now, date2=date_now)
 
 
-if __name__ == '__main__':
+def main(startfile=False):
     try:
         start_time = time.time()
         get_params()
-        # writing_ecxel.start_file()
+        if startfile:
+            general.start_file()
         finish_time = time.time() - start_time
-        print(f"TIME: {finish_time}")
+        logger.info(f"TIME: {finish_time}")
+
     except Exception:
+        print("Ошибка!")
         logger.critical(traceback.format_exc())
+
+
+if __name__ == '__main__':
+    logger = logging.getLogger("main")
+    main(startfile=False)

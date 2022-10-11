@@ -2,15 +2,15 @@ import pandas as pd
 import openpyxl
 import traceback
 from datetime import datetime, timedelta
-
 from openpyxl.styles.numbers import BUILTIN_FORMATS
 
 from common import BaseExcel, api_yandex_async
 
 
 class RefinancingExcel(BaseExcel):
-    def __int__(self):
-        self.filename = self.get_filepath("CR Перекредитование в ЛК")
+    def __init__(self, filename=None):
+        super(RefinancingExcel, self).__init__()
+        self.filename = self.get_filepath("CR Перекредитование в ЛК") if filename is None else filename
         self.book = openpyxl.load_workbook(self.filename)
 
     @staticmethod
@@ -26,6 +26,7 @@ class RefinancingExcel(BaseExcel):
         return result
 
     def get_ids_refinancing(self, is_comment=True):
+        """Получить колонки для записи"""
         result = {}
         for name in self.book.sheetnames:
             sheet = self.book[name]
@@ -60,7 +61,7 @@ class RefinancingExcel(BaseExcel):
             except Exception:
                 self.logger.error(traceback.format_exc())
 
-    def main(self):
+    def main(self, filename=None):
         data = self.get_ids_refinancing()
         data_formulas = self.get_ids_refinancing(is_comment=False)
 

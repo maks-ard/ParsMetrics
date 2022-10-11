@@ -12,7 +12,7 @@ class BaseExcel:
 
     def __int__(self):
         self.logger = logging.getLogger("main")
-        self.__filepath = r"data/path_to_ecxel.json"
+        self.filepath = r"data/path_to_ecxel.json"
 
     @staticmethod
     def get_yesterday() -> list[str]:
@@ -25,7 +25,7 @@ class BaseExcel:
 
     def get_filepath(self, filename: str) -> str:
         """Получить путь до нужного файла"""
-        all_files = json.load(open(self.__filepath, encoding="utf-8"))
+        all_files = json.load(open(self.filepath, encoding="utf-8"))
         try:
             return all_files[filename]
 
@@ -37,7 +37,7 @@ class BaseExcel:
 
             all_files[filename] = filedialog.askopenfilename()
 
-            json.dump(all_files, open(self.__filepath, encoding="utf-8"), indent=4, ensure_ascii=False)
+            json.dump(all_files, open(self.filepath, encoding="utf-8"), indent=4, ensure_ascii=False)
 
             return filedialog.askopenfilename()
 
