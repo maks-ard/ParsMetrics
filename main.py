@@ -7,10 +7,9 @@ import pandas as pd
 from lib import GeneralMetrics, RefinancingExcel
 from common.editor_excel import EditorExcel
 
-general = GeneralMetrics()
-refinancing = RefinancingExcel(filename=r"tests/CR Перекредитование в ЛК.xlsx")
-editor = EditorExcel(general.get_filepath(general.filename))
-editor = EditorExcel(general.get_filepath(general.filename))
+general = GeneralMetrics(filename="test-КопияМетрики")
+refinancing = RefinancingExcel(filename=r"test-КопияПерекредитование")
+editor = EditorExcel(general.filename)
 
 
 def get_logger():
@@ -27,21 +26,21 @@ def get_logger():
 
 def get_params():
     year = "2022"
-    need_date = input(f"!!!ВСЕ ДАТЫ ПРОПИСЫВАЮТСЯ В ФОРМАТЕ DD MM YYYY!!!\n"
-                      f"Год опционально, по-умолчанию стоит {year}\n"
-                      f"Напиши первую дату если нужна выгрузка за период, иначе нажми Enter: ")
-    if need_date == "":
+
+    choice = input(f"Что выполнить?: ")
+
+    if choice == "general":
         general.main()
 
-    elif need_date == "update":
+    elif choice == "refin":
+        refinancing.main()
+
+    elif choice == "update":
         editor.update_date(general.name_sheet())
         editor.update_formulas(general.name_sheet())
 
-    elif need_date == "refin":
-        refinancing.main()
-
     else:
-        start_date = need_date.split(" ")
+        start_date = choice.split(" ")
         stop_date = input("Дата окончания d-m-y: ").split(" ")
         if len(start_date) == 3:
             year = start_date[2]
@@ -55,9 +54,12 @@ def get_params():
 def main(startfile=False):
     try:
         start_time = time.time()
+
         get_params()
+
         if startfile:
             general.start_file()
+
         finish_time = time.time() - start_time
         logger.info(f"TIME: {finish_time}")
 

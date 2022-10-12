@@ -10,22 +10,20 @@ from tkinter import filedialog, Tk
 
 class BaseExcel:
 
-    def __int__(self):
+    def __init__(self):
         self.logger = logging.getLogger("main")
-        self.filepath = r"data/path_to_ecxel.json"
+        self.filepath = r"data/path_to_excelfiles.json"
 
-    @staticmethod
-    def get_yesterday() -> list[str]:
-        """Возвращает вчерашнюю дату списком [dd, mm, yyyy]"""
-        return (datetime.now() - timedelta(days=1)).strftime('%d.%m.%Y').split(".")
+    @property
+    def get_yesterday(self) -> datetime:
+        return datetime.now() - timedelta(days=1)
 
     def start_file(self, filename):
-        """Открыть файл"""
         os.startfile(self.get_filepath(filename))
 
     def get_filepath(self, filename: str) -> str:
         """Получить путь до нужного файла"""
-        all_files = json.load(open(self.filepath, encoding="utf-8"))
+        all_files = json.load(open(self.filepath, "r", encoding="utf-8"))
         try:
             return all_files[filename]
 
@@ -37,7 +35,7 @@ class BaseExcel:
 
             all_files[filename] = filedialog.askopenfilename()
 
-            json.dump(all_files, open(self.filepath, encoding="utf-8"), indent=4, ensure_ascii=False)
+            json.dump(all_files, open(self.filepath, "w", encoding="utf-8"), indent=4, ensure_ascii=False)
 
             return filedialog.askopenfilename()
 
@@ -46,5 +44,3 @@ class BaseExcel:
 
         except Exception:
             self.logger.critical(traceback.format_exc())
-
-

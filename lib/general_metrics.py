@@ -7,21 +7,21 @@ from common import BaseExcel, api_yandex_async
 
 class GeneralMetrics(BaseExcel):
     def __init__(self, filename=None):
-        super(GeneralMetrics, self).__init__()
-        self.filename = self.get_filepath("Метрики2022КОПИЯ") if filename is None else filename
+        super().__init__()
+        self.filename = self.get_filepath("Метрики2022КОПИЯ") if filename is None else self.get_filepath(filename)
         self.book = openpyxl.load_workbook(self.filename)
 
     def name_sheet(self, month=None):
         if month is None:
-            month = self.get_yesterday()[1]
+            month = self.get_yesterday.month
         return json.load(open(r"data/name_sheet.json", encoding="utf-8"))[month]  # текущий месяц
 
     def main(self, day=None, month=None, date1='yesterday', date2='yesterday'):
         if day is None:
-            day = self.get_yesterday()[0]
+            day = self.get_yesterday.day
 
         if month is None:
-            month = self.get_yesterday()[1]
+            month = self.get_yesterday.month
 
         ids: dict = EditorExcel(self.filename).get_id_row("BR")
         metrics = api_yandex_async.main(ids, date1=date1, date2=date2)  # выгруженные метрики
