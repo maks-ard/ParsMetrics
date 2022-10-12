@@ -55,4 +55,5 @@ if __name__ == '__main__':
         finish_time = time.time() - start_time
         print(f"TIME: {finish_time}")
     except Exception:
+        print("Ошибка!")
         logger.critical(traceback.format_exc())

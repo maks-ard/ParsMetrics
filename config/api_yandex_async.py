@@ -72,6 +72,8 @@ async def gather_data(ids: dict, date1='yesterday', date2='yesterday', id_counte
 
 
 def main(ids: dict, date1='yesterday', date2='yesterday', id_counter=19405381, need_users=True):
+    global metrics
+    metrics = {}
     global bar
     bar = IncrementalBar(f'Парсинг данных: {date1}', max=len(ids))
 

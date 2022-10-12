@@ -118,6 +118,14 @@ def get_row_for_write(sheet):
     return result
 
 
+def get_row_by_date(sheet, date):
+    rows = sheet.iter_rows(max_col=1)
+    for row in rows:
+        for cell in row:
+            if type(cell.value) is datetime and datetime.date(cell.value) == date.date():
+                return cell.value, cell.row
+
+
 def do_offset_formulas(sheet, data, row):
     for col in data:
         cell = sheet.cell(row=row, column=col)
@@ -129,39 +137,39 @@ def do_offset_formulas(sheet, data, row):
                     sheet[cell.coordinate] = cell_offset.value.replace(str(cell_offset_row), str(row))
                     if "РСД" not in cell_offset.value:
                         sheet[cell.coordinate].number_format = BUILTIN_FORMATS[9]
-
-
         except Exception:
             logger.error(traceback.format_exc())
 
 
-def write_goal_refinance():
-    filename = r"C:\Users\Центрофинанс\OneDrive - ООО Микрокредитная компания «Центрофинанс Групп»\Рабочий стол\OneDrive - ООО Микрокредитная компания «Центрофинанс Групп»\Документы\CR Перекредитование в ЛК.xlsx"
-    # filename = r"CR Перекредитование в ЛК.xlsx" # тестовый
+def write_goal_refinance(firstdate=None):
+    filename = r"C:\Users\Центрофинанс\OneDrive - ООО Микрокредитная компания «Центрофинанс Групп»\Рабочий стол\OneDrive - ООО Микрокредитная компания «Центрофинанс Групп»\Документы\CR Перекредитование в ЛК_версия 2.0.xlsx"
+    # filename = r"tests/Копия CR Перекредитование в ЛК_версия 2.0 — копия.xlsx"  # test
     book = openpyxl.load_workbook(filename)
     data = get_ids_refin(book)
+    logger.info(data)
     data_formulas = get_ids_refin(book, is_comment=False)
+    logger.info(data_formulas)
 
     for name, ids in data.items():
+        logger.info(f"{name} : {ids}")
         sheet = book[name]
-        last_row = get_row_for_write(sheet)
+        # firstdate = datetime(2022, 10, 4, 0, 0)
+        last_row = get_row_for_write(sheet) if firstdate is None else get_row_by_date(sheet, firstdate)
 
         first_date = str(last_row[0])
         row = int(last_row[1])
         yesterday = (datetime.now() - timedelta(days=1)).strftime('20%y-%m-%d')
         daterange = pd.date_range(first_date.split(" ")[0], yesterday)
 
-        logger.info(f"{last_row}:{yesterday}")
-
         if first_date.split(" ")[0] != datetime.now().strftime('20%y-%m-%d'):
             for date in daterange:
                 date_format = str(date.strftime("%Y-%m-%d"))
-                metrics = api_yandex_async.main(ids, date1=date_format, date2=date_format, need_users=False)
 
-                date: datetime
                 sheet[f"A{row + 1}"] = date + timedelta(days=1)
                 sheet[f"A{row + 1}"].number_format = "DD.MM.YYYY"
 
+                metrics = api_yandex_async.main(ids, date1=date_format, date2=date_format, need_users=False)
+                logger.info(metrics)
                 for col, goal in metrics.items():
                     if goal != "" and col != "date":
                         sheet[str(col) + str(row)] = int(goal)
