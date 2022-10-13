@@ -95,7 +95,7 @@ class RefinancingExcel(BaseExcel):
 
             bar.next()
 
-        # self.book.save(self.filename)
+        self.book.save(self.filename)
 
         bar.finish()
 
