@@ -14,8 +14,8 @@ editor = EditorExcel(general.filename)
 
 
 def auto():
-    schedule.every(1).hour.do(refinancing.main())
-    schedule.every(1).days.do(general.main())
+    schedule.every(1).hour.do(refinancing.main)
+    schedule.every(1).days.do(general.main)
 
 
 def get_logger():
@@ -46,9 +46,10 @@ def get_params():
         editor.update_formulas(general.name_sheet())
 
     elif choice == "auto":
+        auto()
         while True:
             schedule.run_pending()
-            time.sleep(5)
+            time.sleep(1)
 
     else:
         start_date = choice.split(" ")

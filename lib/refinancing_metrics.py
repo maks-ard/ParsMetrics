@@ -68,7 +68,8 @@ class RefinancingExcel(BaseExcel):
                 self.logger.error(traceback.format_exc())
 
     def main(self):
-        bar = IncrementalBar("Выгрузка перекредитования:", max=len(self.book.sheetnames))
+        bar = IncrementalBar(f"Выгрузка перекредитования за {datetime.now().strftime('%d.%m.%Y %H:%M:%S')}:",
+                             max=len(self.book.sheetnames))
 
         goals = self.get_ids_refinancing()
         formulas = self.get_ids_refinancing(is_comment=False)
