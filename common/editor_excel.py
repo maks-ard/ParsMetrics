@@ -1,5 +1,4 @@
 """Редактирует файл с id, если что то меняется в таблице"""
-"""В процессе"""
 import json
 import logging
 import openpyxl
@@ -7,10 +6,8 @@ import pandas as pd
 from datetime import datetime
 from calendar import monthrange
 
-from config import writing_ecxel
 
-
-class GetIdRow:
+class EditorExcel:
     def __init__(self, filename):
         self.path = r"data/ids — копия.json"
         self.filename = filename
@@ -109,7 +106,7 @@ class GetIdRow:
         self.logger.debug("sheet = {}, days = {}".format(sheet, days))
 
         for column in work_columns[days]:
-            
+
             for cell in sheet[column]:
 
                 self.logger.debug("cell.value = {}".format(cell.value))

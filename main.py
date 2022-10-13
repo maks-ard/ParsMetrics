@@ -4,39 +4,43 @@ import traceback
 
 import pandas as pd
 
-from config import writing_ecxel
-from config.editor import GetIdRow
+from lib import GeneralMetrics, RefinancingExcel
+from common.editor_excel import EditorExcel
 
-logger = logging.getLogger("main")
-logger.setLevel(logging.INFO)
+general = GeneralMetrics(filename="test-КопияМетрики")
+refinancing = RefinancingExcel(filename=r"test-КопияПерекредитование")
+editor = EditorExcel(general.filename)
 
-file_handler = logging.FileHandler(r"data/pars_metrics.log", mode="w")
 
-formatter = logging.Formatter("%(asctime)s : [%(levelname)s] [%(lineno)d] : %(message)s")
-file_handler.setFormatter(formatter)
+def get_logger():
+    log = logging.getLogger("main")
+    log.setLevel(logging.INFO)
 
-logger.addHandler(file_handler)
+    file_handler = logging.FileHandler(r"data/pars_metrics.log", mode="w")
+
+    formatter = logging.Formatter("%(asctime)s : [%(levelname)s] [%(lineno)d] : %(message)s")
+    file_handler.setFormatter(formatter)
+
+    log.addHandler(file_handler)
 
 
 def get_params():
     year = "2022"
-    need_date = input(f"!!!ВСЕ ДАТЫ ПРОПИСЫВАЮТСЯ В ФОРМАТЕ DD MM YYYY!!!\n"
-                      f"Год опционально, по-умолчанию стоит {year}\n"
-                      f"Напиши первую дату если нужна выгрузка за период, иначе нажми Enter: ")
-    if need_date == "":
-        writing_ecxel.edit_file()
 
-    elif need_date == "update":
-        editor = GetIdRow(writing_ecxel.file_for_write())
-        editor.update_date(writing_ecxel.name_sheet())
-        editor.update_formulas(writing_ecxel.name_sheet())
+    choice = input(f"Что выполнить?: ")
 
-    elif need_date == "refin":
-        writing_ecxel.write_goal_refinance()
+    if choice == "general":
+        general.main()
+
+    elif choice == "refin":
+        refinancing.main()
+
+    elif choice == "update":
+        editor.update_date(general.name_sheet())
+        editor.update_formulas(general.name_sheet())
 
     else:
-
-        start_date = need_date.split(" ")
+        start_date = choice.split(" ")
         stop_date = input("Дата окончания d-m-y: ").split(" ")
         if len(start_date) == 3:
             year = start_date[2]
@@ -44,16 +48,26 @@ def get_params():
 
         for date in daterange:
             date_now = str(date.strftime("%Y-%m-%d"))
-            writing_ecxel.edit_file(day=date.strftime("%d"), month=date.strftime('%m'), date1=date_now, date2=date_now)
+            general.main(day=date.strftime("%d"), month=date.strftime('%m'), date1=date_now, date2=date_now)
 
 
-if __name__ == '__main__':
+def main(startfile=False):
     try:
         start_time = time.time()
+
         get_params()
-        # writing_ecxel.start_file()
+
+        if startfile:
+            general.start_file(general.filename)
+
         finish_time = time.time() - start_time
-        print(f"TIME: {finish_time}")
+        logger.info(f"TIME: {finish_time}")
+
     except Exception:
         print("Ошибка!")
         logger.critical(traceback.format_exc())
+
+
+if __name__ == '__main__':
+    logger = logging.getLogger("main")
+    main(startfile=False)
