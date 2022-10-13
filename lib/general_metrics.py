@@ -21,15 +21,21 @@ class GeneralMetrics(BaseExcel):
             day = self.get_yesterday.day
 
         if month is None:
-            month = self.get_yesterday.month
+            month = self.get_yesterday.strftime("%m")
 
         ids: dict = EditorExcel(self.filename).get_id_row("BR")
+
+        print("Выгрузка метрик...")
         metrics = api_yandex_async.main(ids, date1=date1, date2=date2)  # выгруженные метрики
 
         sheet = self.book[self.name_sheet(month)]  # нужный лист в ecxel
         col = json.load(open(r'data/date_col.json', encoding="utf-8"))[day]  # нужная колонка
 
+        print("Запись в Excel...")
         for key, index in metrics.items():
             if key != "date" and index != '':
                 sheet[col + str(key)] = int(index)  # запись значения в ячейки
-        self.book.save(filename=self.filename)  # сохранение изменений
+
+        # self.book.save(filename=self.filename)  # сохранение изменений
+        print("Success!")
+

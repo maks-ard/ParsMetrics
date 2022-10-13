@@ -1,10 +1,12 @@
 import pandas as pd
-import openpyxl
 import traceback
 from datetime import datetime, timedelta
+
+import openpyxl
 from openpyxl.styles.numbers import BUILTIN_FORMATS
 from openpyxl.cell.cell import Cell
 from openpyxl.worksheet.worksheet import Worksheet
+from progress.bar import IncrementalBar
 
 from common import BaseExcel, api_yandex_async
 
@@ -60,13 +62,14 @@ class RefinancingExcel(BaseExcel):
                 self.logger.error(traceback.format_exc())
 
     def main(self):
+        bar = IncrementalBar("Выгрузка перекредитования:", max=len(self.book.sheetnames))
+
         goals = self.get_ids_refinancing()
         formulas = self.get_ids_refinancing(is_comment=False)
 
         for name, ids in goals.items():
             sheet: Worksheet = self.book[name]
             last_row = self.get_row_for_write(sheet)
-            print(type(last_row))
             first_date: datetime = last_row[0]
 
             if first_date.date() != datetime.now().date():
@@ -90,4 +93,9 @@ class RefinancingExcel(BaseExcel):
 
                     row += 1
 
+            bar.next()
+
         # self.book.save(self.filename)
+
+        bar.finish()
+

@@ -58,7 +58,7 @@ def main(startfile=False):
         get_params()
 
         if startfile:
-            general.start_file()
+            general.start_file(general.filename)
 
         finish_time = time.time() - start_time
         logger.info(f"TIME: {finish_time}")
