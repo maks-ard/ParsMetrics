@@ -46,6 +46,8 @@ def get_params():
         editor.update_formulas(general.name_sheet())
 
     elif choice == "auto":
+        general.main()
+        refinancing.main()
         auto()
         while True:
             schedule.run_pending()
