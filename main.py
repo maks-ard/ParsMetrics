@@ -3,13 +3,19 @@ import time
 import traceback
 
 import pandas as pd
+import schedule
 
 from lib import GeneralMetrics, RefinancingExcel
 from common.editor_excel import EditorExcel
 
-general = GeneralMetrics(filename="test-КопияМетрики")
-refinancing = RefinancingExcel(filename=r"test-КопияПерекредитование")
+general = GeneralMetrics()
+refinancing = RefinancingExcel()
 editor = EditorExcel(general.filename)
+
+
+def auto():
+    schedule.every(1).hour.do(refinancing.main())
+    schedule.every(1).days.do(general.main())
 
 
 def get_logger():
@@ -38,6 +44,11 @@ def get_params():
     elif choice == "update":
         editor.update_date(general.name_sheet())
         editor.update_formulas(general.name_sheet())
+
+    elif choice == "auto":
+        while True:
+            schedule.run_pending()
+            time.sleep(5)
 
     else:
         start_date = choice.split(" ")

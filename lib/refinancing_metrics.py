@@ -23,6 +23,12 @@ class RefinancingExcel(BaseExcel):
         """Получить последную дату и ряд"""
         return [(row[0].value, row[0].row) for row in sheet.iter_rows(max_col=1) if row[0].value is not None][-1]
 
+    @staticmethod
+    def get_row_by_date(sheet: Worksheet, date: datetime):
+        for row in sheet.iter_rows(max_col=1):
+            if row[0].value.date() == date.date():
+                return row[0].value, row[0].row
+
     def get_ids_refinancing(self, is_comment=True) -> dict[dict] | dict[list]:
         """
         is_comment: True - Получить id целей и их колонки dict[dict]
@@ -72,12 +78,12 @@ class RefinancingExcel(BaseExcel):
             last_row = self.get_row_for_write(sheet)
             first_date: datetime = last_row[0]
 
-            if first_date.date() != datetime.now().date():
-                daterange = pd.date_range(first_date, self.get_yesterday.strftime('%Y-%m-%d'))
+            if first_date.date() <= datetime.now().date():
+                daterange = pd.date_range(first_date, self.get_now.strftime('%Y-%m-%d'))
                 row = last_row[1]
 
                 for date in daterange:
-                    sheet.cell(row=row + 1, column=1, value=date + timedelta(days=1))
+                    sheet.cell(row=row, column=1, value=date)
                     sheet[f"A{row + 1}"].number_format = "DD.MM.YYYY"
 
                     self.do_offset_formulas(sheet, formulas[name], row)
@@ -98,4 +104,3 @@ class RefinancingExcel(BaseExcel):
         self.book.save(self.filename)
 
         bar.finish()
-

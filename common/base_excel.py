@@ -18,6 +18,10 @@ class BaseExcel:
     def get_yesterday(self) -> datetime:
         return datetime.now() - timedelta(days=1)
 
+    @property
+    def get_now(self):
+        return datetime.now()
+
     def start_file(self, filename):
         os.startfile(self.get_filepath(filename))
 
@@ -28,6 +32,7 @@ class BaseExcel:
             return all_files[filename]
 
         except (KeyError, FileNotFoundError):
+            print(f"Укажите путь до {filename}")
             root = Tk()
             root.attributes("-topmost", True)
             root.lift()
