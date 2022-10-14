@@ -1,11 +1,12 @@
 import pandas as pd
 import traceback
-from datetime import datetime, timedelta
+from datetime import datetime
 
 import openpyxl
 from openpyxl.styles.numbers import BUILTIN_FORMATS
 from openpyxl.cell.cell import Cell
 from openpyxl.worksheet.worksheet import Worksheet
+from openpyxl.comments import Comment
 from progress.bar import IncrementalBar
 
 from common import BaseExcel, api_yandex_async
@@ -84,7 +85,9 @@ class RefinancingExcel(BaseExcel):
                 row = last_row[1]
 
                 for date in daterange:
-                    sheet.cell(row=row, column=1, value=date)
+                    cell = sheet.cell(row=row, column=1, value=date)
+                    comment = Comment(f"{datetime.now().strftime('%H:%M:%S')}", "auto")
+                    cell.comment = comment
                     sheet[f"A{row + 1}"].number_format = "DD.MM.YYYY"
 
                     self.do_offset_formulas(sheet, formulas[name], row)
