@@ -68,7 +68,7 @@ class RefinancingExcel(BaseExcel):
                 print("Ошибка в записи формул!")
                 self.logger.error(traceback.format_exc())
 
-    def main(self):
+    def main(self, date=None):
         bar = IncrementalBar(f"Выгрузка перекредитования за {datetime.now().strftime('%d.%m.%Y %H:%M:%S')}:",
                              max=len(self.book.sheetnames))
 
