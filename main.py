@@ -1,6 +1,7 @@
 import logging
 import time
 import traceback
+from datetime import datetime
 
 import pandas as pd
 import schedule
@@ -48,6 +49,7 @@ def get_params():
     elif choice == "auto":
         # general.main()
         # refinancing.main()
+        print(datetime.now())
         auto()
         while True:
             schedule.run_pending()
