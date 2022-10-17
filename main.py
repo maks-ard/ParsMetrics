@@ -47,8 +47,7 @@ def get_params():
 
     elif choice == "auto":
         # general.main()
-        refinancing.main()
-        refinancing.main()
+        # refinancing.main()
         auto()
         while True:
             schedule.run_pending()

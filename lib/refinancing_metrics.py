@@ -79,10 +79,12 @@ class RefinancingExcel(BaseExcel):
             sheet: Worksheet = self.book[name]
             last_row = self.get_row_for_write(sheet)
             first_date: datetime = last_row[0]
+            # first_date: datetime = datetime(2022, 10, 10, 0, 0, 0)
 
             if first_date.date() <= datetime.now().date():
                 daterange = pd.date_range(first_date, self.get_now.strftime('%Y-%m-%d'))
                 row = last_row[1]
+                # row = 8
 
                 for date in daterange:
                     cell = sheet.cell(row=row, column=1, value=date)
