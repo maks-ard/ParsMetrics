@@ -7,6 +7,7 @@ from openpyxl.styles.numbers import BUILTIN_FORMATS
 from openpyxl.cell.cell import Cell
 from openpyxl.worksheet.worksheet import Worksheet
 from openpyxl.comments import Comment
+from openpyxl.workbook import Workbook
 from progress.bar import IncrementalBar
 
 from common import BaseExcel, api_yandex_async
@@ -17,7 +18,6 @@ class RefinancingExcel(BaseExcel):
         super().__init__()
         self.filename = self.get_filepath("CR Перекредитование в ЛК") if filename is None else self.get_filepath(
             filename)
-        self.book = openpyxl.load_workbook(self.filename)
 
     @staticmethod
     def get_row_for_write(sheet: Worksheet) -> tuple:
@@ -30,15 +30,15 @@ class RefinancingExcel(BaseExcel):
             if row[0].value.date() == date.date():
                 return row[0].value, row[0].row
 
-    def get_ids_refinancing(self, is_comment=True) -> dict[dict] | dict[list]:
+    def get_ids_refinancing(self, book: Workbook, is_comment=True) -> dict[dict] | dict[list]:
         """
         is_comment: True - Получить id целей и их колонки dict[dict]
         is_comment: False - Получить колонки для формул dict[list]
         """
-        result = {name: {} if is_comment else [] for name in self.book.sheetnames}
+        result = {name: {} if is_comment else [] for name in book.sheetnames}
 
-        for name in self.book.sheetnames:
-            sheet: Worksheet = self.book[name]
+        for name in book.sheetnames:
+            sheet: Worksheet = book[name]
 
             for row in sheet.iter_rows(max_row=1, min_col=2, max_col=sheet.max_column):
                 for cell in row:
@@ -69,22 +69,24 @@ class RefinancingExcel(BaseExcel):
                 self.logger.error(traceback.format_exc())
 
     def main(self, date=None):
-        bar = IncrementalBar(f"Выгрузка перекредитования за {datetime.now().strftime('%d.%m.%Y %H:%M:%S')}:",
-                             max=len(self.book.sheetnames))
+        book = openpyxl.load_workbook(self.filename)
 
-        goals = self.get_ids_refinancing()
-        formulas = self.get_ids_refinancing(is_comment=False)
+        bar = IncrementalBar(f"Выгрузка перекредитования за {datetime.now().strftime('%d.%m.%Y %H:%M:%S')}:",
+                             max=len(book.sheetnames))
+
+        goals = self.get_ids_refinancing(book)
+        formulas = self.get_ids_refinancing(book, is_comment=False)
 
         for name, ids in goals.items():
-            sheet: Worksheet = self.book[name]
+            sheet: Worksheet = book[name]
             last_row = self.get_row_for_write(sheet)
             first_date: datetime = last_row[0]
-            # first_date: datetime = datetime(2022, 10, 10, 0, 0, 0)
+            # first_date: datetime = datetime(2022, 10, 16, 0, 0, 0)
 
             if first_date.date() <= datetime.now().date():
                 daterange = pd.date_range(first_date, self.get_now.strftime('%Y-%m-%d'))
                 row = last_row[1]
-                # row = 8
+                # row = 14
 
                 for date in daterange:
                     cell = sheet.cell(row=row, column=1, value=date)
@@ -107,7 +109,7 @@ class RefinancingExcel(BaseExcel):
 
             bar.next()
 
-        self.book.save(self.filename)
-        self.book.close()
+        book.save(self.filename)
+        book.close()
 
         bar.finish()

@@ -10,11 +10,11 @@ from lib import GeneralMetrics, RefinancingExcel
 from common.editor_excel import EditorExcel
 
 general = GeneralMetrics()
-refinancing = RefinancingExcel()
 editor = EditorExcel(general.filename)
 
 
 def auto():
+    refinancing = RefinancingExcel()
     schedule.every(1).hour.do(refinancing.main)
     # schedule.every(1).days.do(general.main)
 
@@ -40,6 +40,7 @@ def get_params():
         general.main()
 
     elif choice == "refin":
+        refinancing = RefinancingExcel()
         refinancing.main()
 
     elif choice == "update":
