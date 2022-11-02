@@ -2,6 +2,7 @@ import logging
 import time
 import traceback
 from datetime import datetime
+import plyer
 
 import pandas as pd
 import schedule
@@ -81,7 +82,10 @@ def main(startfile=False):
         logger.info(f"TIME: {finish_time}")
 
     except Exception:
-        print("Ошибка!")
+        plyer.notification.notify(message='Ошибка выгрузки метрик',
+                                  app_name='ParsMetrics',
+                                  app_icon='data/error.jpg',
+                                  title='Error')
         logger.critical(traceback.format_exc())
 
 
