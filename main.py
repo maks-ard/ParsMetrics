@@ -41,7 +41,7 @@ def get_params():
         general.main()
 
     elif choice == "refin":
-        refinancing = RefinancingExcel()
+        refinancing = RefinancingExcel(filename="test-КопияПерекредитование")
         refinancing.main()
 
     elif choice == "update":
@@ -84,9 +84,9 @@ def main(startfile=False):
     except Exception:
         plyer.notification.notify(message='Error download metrics!',
                                   app_name='ParsMetrics',
-                                  app_icon='data/static/success_icon-icons.com_52365.ico',
+                                  app_icon='data/static/problem_icon-icons.com_54943.ico',
                                   title='Error',
-                                  timeout=2)
+                                  timeout=5)
         logger.critical(traceback.format_exc())
 
 

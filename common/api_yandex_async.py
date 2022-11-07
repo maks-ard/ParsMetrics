@@ -4,6 +4,9 @@ Callback URL: https://oauth.yandex.ru/verification_code
 Дата создания: 29.03.2022
 """
 import asyncio
+import json
+from types import SimpleNamespace
+
 import aiohttp
 import requests
 import logging
@@ -11,68 +14,77 @@ import logging
 from common.privat_info import TOKEN
 
 logger = logging.getLogger("main")
-URL = "https://api-metrika.yandex.net/stat/v1/data"
-headers = {'Authorization': f'OAuth {TOKEN}'}
 metrics = {}
-count = 0
 
 
-def get_users(date1='yesterday', date2='yesterday', id_counter=19405381):
-    params = {
-        'metrics': f'ym:s:users',
-        'ids': id_counter,
-        'date1': date1,
-        'date2': date2
-    }
+class YandexApi:
+    def __init__(self, id_counter=19405381):
+        self.base_url = "https://api-metrika.yandex.net/stat/v1/"
+        self.id_counter = id_counter
 
-    response = requests.get(URL, headers=headers, params=params)
-    users = response.json()
-    all_users = int(users["totals"][0])
-    return int(all_users)
+    @staticmethod
+    def get_response_object(data):
+        return json.loads(json.dumps(data.json()), object_hook=lambda d: SimpleNamespace(**d))
+
+    @property
+    def headers(self):
+        return {'Authorization': f'OAuth {TOKEN}'}
+
+    def get_params(self, metric, first_date, last_date):
+        return {
+            'metrics': metric,
+            'ids': self.id_counter,
+            'date1': first_date,
+            'date2': last_date,
+            "dimensions": "ym:s:date",
+            'sort': "ym:s:date"
+        }
+
+    def get_users(self, date1='yesterday', date2='yesterday'):
+        url = self.base_url + "data"
+        params = self.get_params(f'ym:s:users', date1, date2)
+        response = self.get_response_object(requests.get(url, headers=self.headers, params=params))
+
+        return response.totals[0]
+
+    async def get_visits(self, session, row, goals, date1='yesterday', date2='yesterday'):
+        url = self.base_url + "data"
+
+        params = self.get_params(f'ym:s:goal{goals}visits', date1, date2)
+        async with session.get(url, headers=self.headers, params=params) as response:
+            users = await response.json()
+            if 200 <= response.status <= 399:
+                metrics[row] = (users["totals"][0])
+                metrics["date"] = users["query"]["date1"]
+
+            elif response.status == 400:
+                logger.warning(users)
+                logger.info(params)
+
+            else:
+                response.raise_for_status()
+
+    async def gather_data(self, ids: dict, date1='yesterday', date2='yesterday'):
+        async with aiohttp.ClientSession(connector=aiohttp.TCPConnector(limit=3)) as session:
+            tasks = list()
+            for id_goal, row in ids.items():
+                tasks.append(
+                    asyncio.create_task(
+                        self.get_visits(session, row, id_goal, date1=date1, date2=date2)
+                    )
+                )
+            await asyncio.gather(*tasks)
 
 
-async def get_visits(session, row, goals, date1='yesterday', date2='yesterday', id_counter=19405381):
-    params = {
-        'metrics': f'{goals}',
-        'ids': id_counter,
-        'date1': date1,
-        'date2': date2,
-        "dimensions": "ym:s:date",
-        'sort': "ym:s:date"
-    }
-    async with session.get(URL, headers=headers, params=params) as response:
-        users = await response.json()
-        if 200 <= response.status <= 399:
-            metrics[row] = (users["totals"][0])
-            metrics["date"] = users["query"]["date1"]
-
-        elif response.status == 400:
-            logger.warning(users)
-            logger.info(params)
-
-        else:
-            response.raise_for_status()
-
-
-async def gather_data(ids: dict, date1='yesterday', date2='yesterday', id_counter=19405381):
-    connector = aiohttp.TCPConnector(limit=3)  # Ограничивает количество параллельных запросов
-    async with aiohttp.ClientSession(connector=connector) as session:
-        tasks = []
-        for id_goal, row in ids.items():
-            task = asyncio.create_task(
-                get_visits(session, row, f'ym:s:goal{id_goal}visits', date1=date1, date2=date2,
-                           id_counter=id_counter))
-            tasks.append(task)
-        await asyncio.gather(*tasks)
-
-
-def main(ids: dict, date1='yesterday', date2='yesterday', id_counter=19405381, need_users=True):
+def main(ids: dict, date1='yesterday', date2='yesterday', need_users=True):
     global metrics
     metrics = {}
+    api = YandexApi()
 
     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
-    asyncio.run(gather_data(ids, date1=date1, date2=date2, id_counter=id_counter))
+    asyncio.run(api.gather_data(ids, date1=date1, date2=date2))
+
     if need_users:
-        metrics["3"] = get_users(date1=date1, date2=date2, id_counter=id_counter)
+        metrics["3"] = api.get_users(date1=date1, date2=date2)
 
     return metrics
