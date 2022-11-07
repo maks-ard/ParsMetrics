@@ -3,6 +3,7 @@ import traceback
 from datetime import datetime
 
 import openpyxl
+import plyer
 from openpyxl.styles.numbers import BUILTIN_FORMATS
 from openpyxl.cell.cell import Cell
 from openpyxl.worksheet.worksheet import Worksheet
@@ -111,5 +112,11 @@ class RefinancingExcel(BaseExcel):
 
         book.save(self.filename)
         book.close()
+
+        plyer.notification.notify(message='Metrics is download!',
+                                  app_name='ParsMetrics',
+                                  app_icon='data/static/success_icon-icons.com_52365.ico',
+                                  title='Success',
+                                  timeout=2)
 
         bar.finish()

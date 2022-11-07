@@ -82,10 +82,11 @@ def main(startfile=False):
         logger.info(f"TIME: {finish_time}")
 
     except Exception:
-        plyer.notification.notify(message='Ошибка выгрузки метрик',
+        plyer.notification.notify(message='Error download metrics!',
                                   app_name='ParsMetrics',
-                                  app_icon='data/error.jpg',
-                                  title='Error')
+                                  app_icon='data/static/success_icon-icons.com_52365.ico',
+                                  title='Error',
+                                  timeout=2)
         logger.critical(traceback.format_exc())
 
 
