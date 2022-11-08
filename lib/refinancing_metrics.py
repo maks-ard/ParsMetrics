@@ -98,7 +98,6 @@ class RefinancingExcel(BaseExcel):
                     self.do_offset_formulas(sheet, formulas[name], row)
 
                     date_format = date.strftime("%Y-%m-%d")
-                    print(ids)
                     metrics = api_yandex_async.main(ids, date1=date_format, date2=date_format, need_users=False)
 
                     self.logger.info(f"{name}: {metrics}")
