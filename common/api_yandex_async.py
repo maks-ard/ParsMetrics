@@ -40,6 +40,13 @@ class YandexApi:
             'sort': "ym:s:date"
         }
 
+    def get_total_time(self, date):
+        url = self.base_url + "data"
+        params = self.get_params("ym:s:avgVisitDurationSeconds", date, date)
+
+        response = self.get_response_object(requests.get(url, headers=self.headers, params=params))
+        return round(int(response.totals[0]) / 60, 2)
+
     def get_users(self, date1='yesterday', date2='yesterday'):
         url = self.base_url + "data"
         params = self.get_params(f'ym:s:users', date1, date2)

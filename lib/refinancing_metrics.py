@@ -12,6 +12,7 @@ from openpyxl.workbook import Workbook
 from progress.bar import IncrementalBar
 
 from common import BaseExcel, api_yandex_async
+from common import YandexApi
 
 
 class RefinancingExcel(BaseExcel):
@@ -19,6 +20,7 @@ class RefinancingExcel(BaseExcel):
         super().__init__()
         self.filename = self.get_filepath("CR Перекредитование в ЛК") if filename is None else self.get_filepath(
             filename)
+        self.api = YandexApi()
 
     @staticmethod
     def get_row_for_write(sheet: Worksheet) -> tuple:
@@ -31,7 +33,8 @@ class RefinancingExcel(BaseExcel):
             if row[0].value.date() == date.date():
                 return row[0].value, row[0].row
 
-    def get_ids_refinancing(self, book: Workbook, is_comment=True) -> dict[dict] | dict[list]:
+    @staticmethod
+    def get_ids_refinancing(book: Workbook, is_comment=True) -> dict[dict] | dict[list]:
         """
         is_comment: True - Получить id целей и их колонки dict[dict]
         is_comment: False - Получить колонки для формул dict[list]
@@ -46,11 +49,25 @@ class RefinancingExcel(BaseExcel):
 
                     if is_comment and cell.comment is not None:
                         comment = cell.comment.text.split("\n")[1]
-                        result[name].update({comment: cell.column})
+                        if comment != "total_time":
+                            result[name].update({comment: cell.column})
 
                     if not is_comment and cell.comment is None and cell.value is not None:
                         result[name].append(cell.column)
         return result
+
+    @staticmethod
+    def get_column_time(sheet: Worksheet):
+        for row in sheet.iter_rows(max_row=1, min_col=2, max_col=sheet.max_column):
+            for cell in row:
+                if cell.comment is not None and cell.comment.text.split("\n")[1] == "total_time":
+                    return cell.column
+
+    @staticmethod
+    def add_comment(sheet: Worksheet, row, date):
+        cell = sheet.cell(row=row, column=1, value=date)
+        cell.comment = Comment(f"{datetime.now().strftime('%H:%M:%S')}", "auto")
+        sheet[f"A{row + 1}"].number_format = "DD.MM.YYYY"
 
     def do_offset_formulas(self, sheet: Worksheet, data: list, row: int):
         for col in data:
@@ -69,10 +86,11 @@ class RefinancingExcel(BaseExcel):
                 print("Ошибка в записи формул!")
                 self.logger.error(traceback.format_exc())
 
-    def add_comment(self, sheet: Worksheet, row, date):
-        cell = sheet.cell(row=row, column=1, value=date)
-        cell.comment = Comment(f"{datetime.now().strftime('%H:%M:%S')}", "auto")
-        sheet[f"A{row + 1}"].number_format = "DD.MM.YYYY"
+    def add_total_time(self, sheet: Worksheet, date, row):
+        column = self.get_column_time(sheet)
+        if column is not None:
+            time = self.api.get_total_time(date)
+            sheet.cell(row=row, column=column, value=time)
 
     def main(self):
         book = openpyxl.load_workbook(self.filename)
@@ -96,12 +114,13 @@ class RefinancingExcel(BaseExcel):
                     self.do_offset_formulas(sheet, formulas[name], row)
 
                     date_format = date.strftime("%Y-%m-%d")
+                    self.add_total_time(sheet, date_format, row)
                     metrics = api_yandex_async.main(ids, date1=date_format, date2=date_format, need_users=False)
 
                     self.logger.info(f"{name}: {metrics}")
 
                     for col, goal in metrics.items():
-                        if goal != "" and col != "date":
+                        if goal != "" and col != "date" and col != "total_time":
                             sheet.cell(row=row, column=col, value=int(goal))
 
                     row += 1
