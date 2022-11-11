@@ -69,7 +69,12 @@ class RefinancingExcel(BaseExcel):
                 print("Ошибка в записи формул!")
                 self.logger.error(traceback.format_exc())
 
-    def main(self, date=None):
+    def add_comment(self, sheet: Worksheet, row, date):
+        cell = sheet.cell(row=row, column=1, value=date)
+        cell.comment = Comment(f"{datetime.now().strftime('%H:%M:%S')}", "auto")
+        sheet[f"A{row + 1}"].number_format = "DD.MM.YYYY"
+
+    def main(self):
         book = openpyxl.load_workbook(self.filename)
 
         bar = IncrementalBar(f"Выгрузка перекредитования за {datetime.now().strftime('%d.%m.%Y %H:%M:%S')}:",
@@ -82,19 +87,12 @@ class RefinancingExcel(BaseExcel):
             sheet: Worksheet = book[name]
             last_row = self.get_row_for_write(sheet)
             first_date: datetime = last_row[0]
-            # first_date: datetime = datetime(2022, 10, 16, 0, 0, 0)
 
             if first_date.date() <= datetime.now().date():
-                daterange = pd.date_range(first_date, self.get_now.strftime('%Y-%m-%d'))
                 row = last_row[1]
-                # row = 14
 
-                for date in daterange:
-                    cell = sheet.cell(row=row, column=1, value=date)
-                    comment = Comment(f"{datetime.now().strftime('%H:%M:%S')}", "auto")
-                    cell.comment = comment
-                    sheet[f"A{row + 1}"].number_format = "DD.MM.YYYY"
-
+                for date in pd.date_range(first_date, self.get_now.strftime('%Y-%m-%d')):
+                    self.add_comment(sheet, row, date)
                     self.do_offset_formulas(sheet, formulas[name], row)
 
                     date_format = date.strftime("%Y-%m-%d")
