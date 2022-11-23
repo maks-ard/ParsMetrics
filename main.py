@@ -41,7 +41,7 @@ def get_params():
         general.main()
 
     elif choice == "refin":
-        refinancing = RefinancingExcel(filename="test-КопияПерекредитование")
+        refinancing = RefinancingExcel()
         refinancing.main()
 
     elif choice == "update":
