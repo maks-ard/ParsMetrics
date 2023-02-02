@@ -30,14 +30,12 @@ class YandexApi:
     def headers(self):
         return {'Authorization': f'OAuth {TOKEN}'}
 
-    def get_params(self, metric, first_date, last_date, dimension="ym:s:date", sort="ym:s:date", **kwargs):
+    def get_params(self, metric, first_date, last_date, **kwargs):
         return {
             'metrics': metric,
             'ids': self.id_counter,
             'date1': first_date,
-            'date2': last_date,
-            'dimensions': dimension,
-            'sort': sort,
+            'date2': last_date
         } | kwargs
 
     def get_total_time(self, date):
