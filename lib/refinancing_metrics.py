@@ -107,7 +107,6 @@ class RefinancingExcel(BaseExcel):
             cell: Cell = sheet.cell(row=row, column=column, value=value)
             sheet[cell.coordinate].number_format = BUILTIN_FORMATS[10]
 
-
     def main(self):
         book = openpyxl.load_workbook(self.filename)
 
