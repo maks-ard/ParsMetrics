@@ -16,6 +16,7 @@ editor = EditorExcel(general.filename)
 
 def auto():
     refinancing = RefinancingExcel()
+    refinancing.main()
     schedule.every(1).hour.do(refinancing.main)
     # schedule.every(1).days.do(general.main)
 

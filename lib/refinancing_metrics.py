@@ -49,7 +49,7 @@ class RefinancingExcel(BaseExcel):
 
                     if is_comment and cell.comment is not None:
                         comment = cell.comment.text.split("\n")[1]
-                        if comment != "total_time":
+                        if comment not in ["total_time", "csat"]:
                             result[name].update({comment: cell.column})
 
                     if not is_comment and cell.comment is None and cell.value is not None:
@@ -61,6 +61,13 @@ class RefinancingExcel(BaseExcel):
         for row in sheet.iter_rows(max_row=1, min_col=2, max_col=sheet.max_column):
             for cell in row:
                 if cell.comment is not None and cell.comment.text.split("\n")[1] == "total_time":
+                    return cell.column
+
+    @staticmethod
+    def get_column_csat(sheet: Worksheet):
+        for row in sheet.iter_rows(max_row=1, min_col=2, max_col=sheet.max_column):
+            for cell in row:
+                if cell.comment is not None and cell.comment.text.split("\n")[1] == "csat":
                     return cell.column
 
     @staticmethod
@@ -86,11 +93,20 @@ class RefinancingExcel(BaseExcel):
                 print("Ошибка в записи формул!")
                 self.logger.error(traceback.format_exc())
 
-    def add_total_time(self, sheet: Worksheet, date, row):
+    def set_total_time(self, sheet: Worksheet, date, row):
         column = self.get_column_time(sheet)
         if column is not None:
             time = self.api.get_total_time(date)
             sheet.cell(row=row, column=column, value=time)
+
+    def set_csat(self, sheet: Worksheet, date, row):
+        column = self.get_column_csat(sheet)
+        if column is not None:
+            csat = self.api.get_csat(date)
+            value = (csat.get('5', 0) + csat.get('4', 0)) / sum(csat.values())
+            cell: Cell = sheet.cell(row=row, column=column, value=value)
+            sheet[cell.coordinate].number_format = BUILTIN_FORMATS[10]
+
 
     def main(self):
         book = openpyxl.load_workbook(self.filename)
@@ -110,15 +126,21 @@ class RefinancingExcel(BaseExcel):
                 row = last_row[1]
 
                 for date in pd.date_range(first_date, self.get_now.strftime('%Y-%m-%d')):
+                    # добавляет коментарий с датой выгрузки
                     self.add_comment(sheet, row, date)
+                    # копирует формулы с предыдущих ячеек
                     self.do_offset_formulas(sheet, formulas[name], row)
 
                     date_format = date.strftime("%Y-%m-%d")
-                    self.add_total_time(sheet, date_format, row)
+                    # устанавливает общее время
+                    self.set_total_time(sheet, date_format, row)
+                    # устанавливает csat
+                    self.set_csat(sheet, date_format, row)
                     metrics = api_yandex_async.main(ids, date1=date_format, date2=date_format, need_users=False)
 
                     self.logger.info(f"{name}: {metrics}")
 
+                    # записывает полученные метрики
                     for col, goal in metrics.items():
                         if goal != "" and col != "date" and col != "total_time":
                             sheet.cell(row=row, column=col, value=int(goal))

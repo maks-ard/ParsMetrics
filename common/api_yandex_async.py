@@ -30,15 +30,15 @@ class YandexApi:
     def headers(self):
         return {'Authorization': f'OAuth {TOKEN}'}
 
-    def get_params(self, metric, first_date, last_date):
+    def get_params(self, metric, first_date, last_date, dimension="ym:s:date", sort="ym:s:date", **kwargs):
         return {
             'metrics': metric,
             'ids': self.id_counter,
             'date1': first_date,
             'date2': last_date,
-            "dimensions": "ym:s:date",
-            'sort': "ym:s:date"
-        }
+            'dimensions': dimension,
+            'sort': sort,
+        } | kwargs
 
     def get_total_time(self, date):
         url = self.base_url + "data"
@@ -70,6 +70,22 @@ class YandexApi:
 
             else:
                 response.raise_for_status()
+
+    def get_csat(self, date):
+        url = self.base_url + "data"
+
+        params = self.get_params("ym:s:paramsNumber",
+                                 date,
+                                 date,
+                                 dimension="ym:s:paramsLevel2",
+                                 sort="ym:s:paramsLevel2",
+                                 filters="ym:s:paramsLevel1=='ratingVote'")
+
+        response = requests.get(url, headers=self.headers, params=params)
+
+        data = response.json()["data"]
+
+        return {item["dimensions"][0]["name"]: item["metrics"][0] for item in data}
 
     async def gather_data(self, ids: dict, date1='yesterday', date2='yesterday'):
         async with aiohttp.ClientSession(connector=aiohttp.TCPConnector(limit=3)) as session:
