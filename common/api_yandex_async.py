@@ -13,7 +13,7 @@ import logging
 
 from common.privat_info import TOKEN
 
-logger = logging.getLogger("main")
+service_name = "parser-yandex-metrics"
 metrics = {}
 
 
@@ -21,6 +21,7 @@ class YandexApi:
     def __init__(self, id_counter=19405381):
         self.base_url = "https://api-metrika.yandex.net/stat/v1/"
         self.id_counter = id_counter
+        self.logger = logging.getLogger(service_name)
 
     @staticmethod
     def get_response_object(data):
@@ -63,8 +64,8 @@ class YandexApi:
                 metrics["date"] = users["query"]["date1"]
 
             elif response.status == 400:
-                logger.warning(users)
-                logger.info(params)
+                self.logger.warning(users)
+                self.logger.info(params)
 
             else:
                 response.raise_for_status()
@@ -75,12 +76,11 @@ class YandexApi:
         params = self.get_params("ym:s:paramsNumber",
                                  date,
                                  date,
-                                 dimension="ym:s:paramsLevel2",
-                                 sort="ym:s:paramsLevel2",
-                                 filters="ym:s:paramsLevel1=='ratingVote'")
+                                 dimensions="ym:s:paramsLevel2",
+                                 filters="ym:s:paramsLevel1=='ratingVote'",
+                                 sort="ym:s:paramsLevel2")
 
         response = requests.get(url, headers=self.headers, params=params)
-
         data = response.json()["data"]
 
         return {item["dimensions"][0]["name"]: item["metrics"][0] for item in data}

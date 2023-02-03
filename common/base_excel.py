@@ -7,11 +7,13 @@ import psutil
 from datetime import datetime, timedelta
 from tkinter import filedialog, Tk
 
+service_name = "parser-yandex-metrics"
+
 
 class BaseExcel:
 
     def __init__(self):
-        self.logger = logging.getLogger("main")
+        self.logger = logging.getLogger(service_name)
         self.filepath = r"data/path_to_excelfiles.json"
 
     @property
@@ -32,7 +34,6 @@ class BaseExcel:
             return all_files[filename]
 
         except (KeyError, FileNotFoundError):
-            print(f"Укажите путь до {filename}")
             root = Tk()
             root.attributes("-topmost", True)
             root.lift()
@@ -45,7 +46,7 @@ class BaseExcel:
             return filedialog.askopenfilename()
 
         except PermissionError:
-            print("Файл для записи открыт!")
+            self.logger.error("Файл для записи открыт!")
 
         except Exception:
             self.logger.critical(traceback.format_exc())
