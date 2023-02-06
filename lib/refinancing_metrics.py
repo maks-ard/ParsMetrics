@@ -153,5 +153,5 @@ class RefinancingExcel(BaseExcel):
                                   title='Success',
                                   timeout=2)
         
-        next_run = schedule.next_run().strftime("%Y-%m-%d %H:%M:%S")
+        next_run = schedule.next_run().strftime("%H:%M:%S")
         self.logger.info(f"Выгрузка завершена. Следующая в {next_run}")
