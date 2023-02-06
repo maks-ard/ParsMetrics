@@ -4,6 +4,7 @@ from datetime import datetime
 
 import openpyxl
 import plyer
+import schedule
 from openpyxl.styles.numbers import BUILTIN_FORMATS
 from openpyxl.cell.cell import Cell
 from openpyxl.worksheet.worksheet import Worksheet
@@ -151,3 +152,6 @@ class RefinancingExcel(BaseExcel):
                                   app_icon='data/static/success_icon-icons.com_52365.ico',
                                   title='Success',
                                   timeout=2)
+        
+        next_run = schedule.next_run().strftime("%Y-%m-%d %H:%M:%s")
+        self.logger.info(f"Выгрузка завершена. Следующая в {next_run}")

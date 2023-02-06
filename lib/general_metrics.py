@@ -1,7 +1,8 @@
+"""Не используется!!!"""
+
 import json
 
 import openpyxl
-from openpyxl.worksheet.worksheet import Worksheet
 
 from common.editor_excel import EditorExcel
 from common import BaseExcel, api_yandex_async
