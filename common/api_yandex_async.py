@@ -13,7 +13,7 @@ import logging
 
 from common.privat_info import TOKEN
 
-logger = logging.getLogger("main")
+service_name = "parser-yandex-metrics"
 metrics = {}
 
 
@@ -21,6 +21,7 @@ class YandexApi:
     def __init__(self, id_counter=19405381):
         self.base_url = "https://api-metrika.yandex.net/stat/v1/"
         self.id_counter = id_counter
+        self.logger = logging.getLogger(service_name)
 
     @staticmethod
     def get_response_object(data):
@@ -43,12 +44,17 @@ class YandexApi:
         params = self.get_params("ym:s:avgVisitDurationSeconds", date, date)
 
         response = self.get_response_object(requests.get(url, headers=self.headers, params=params))
+
+        self.logger.info("Общее время получено")
+
         return round(int(response.totals[0]) / 60, 2)
 
     def get_users(self, date1='yesterday', date2='yesterday'):
         url = self.base_url + "data"
         params = self.get_params(f'ym:s:users', date1, date2)
         response = self.get_response_object(requests.get(url, headers=self.headers, params=params))
+
+        self.logger.info("Пользователи получены")
 
         return response.totals[0]
 
@@ -61,10 +67,11 @@ class YandexApi:
             if 200 <= response.status <= 399:
                 metrics[row] = (users["totals"][0])
                 metrics["date"] = users["query"]["date1"]
+                self.logger.info(f"Визит {goals} получен")
 
             elif response.status == 400:
-                logger.warning(users)
-                logger.info(params)
+                self.logger.warning(users)
+                self.logger.info(params)
 
             else:
                 response.raise_for_status()
@@ -76,12 +83,13 @@ class YandexApi:
                                  date,
                                  date,
                                  dimensions="ym:s:paramsLevel2",
-                                 sort="ym:s:paramsLevel2",
-                                 filters="ym:s:paramsLevel1=='ratingVote'")
+                                 filters="ym:s:paramsLevel1=='ratingVote'",
+                                 sort="ym:s:paramsLevel2")
 
         response = requests.get(url, headers=self.headers, params=params)
-
         data = response.json()["data"]
+
+        self.logger.info("CSAT получен")
 
         return {item["dimensions"][0]["name"]: item["metrics"][0] for item in data}
 

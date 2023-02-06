@@ -1,4 +1,5 @@
 import logging
+import sys
 import time
 import traceback
 from datetime import datetime
@@ -13,6 +14,7 @@ from common.editor_excel import EditorExcel
 general = GeneralMetrics()
 editor = EditorExcel(general.filename)
 
+service_name = "parser-yandex-metrics"
 
 def auto():
     refinancing = RefinancingExcel()
@@ -22,16 +24,16 @@ def auto():
 
 
 def get_logger():
-    log = logging.getLogger("main")
-    log.setLevel(logging.INFO)
+    logger = logging.getLogger(service_name)
+    logger.setLevel(logging.INFO)
 
-    file_handler = logging.FileHandler(r"data/pars_metrics.log", mode="w")
+    stream_handler = logging.StreamHandler(sys.stdout)
+    formatter = logging.Formatter("%(asctime)s | %(levelname)s | %(message)s")
 
-    formatter = logging.Formatter("%(asctime)s : [%(levelname)s] [%(lineno)d] : %(message)s")
-    file_handler.setFormatter(formatter)
+    stream_handler.setFormatter(formatter)
+    logger.addHandler(stream_handler)
 
-    log.addHandler(file_handler)
-
+    return logger
 
 def get_params():
     year = "2022"
@@ -92,5 +94,5 @@ def main(startfile=False):
 
 
 if __name__ == '__main__':
-    logger = logging.getLogger("main")
+    logger = get_logger()
     main(startfile=False)
