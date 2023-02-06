@@ -44,12 +44,17 @@ class YandexApi:
         params = self.get_params("ym:s:avgVisitDurationSeconds", date, date)
 
         response = self.get_response_object(requests.get(url, headers=self.headers, params=params))
+
+        self.logger.info("Общее время получено")
+
         return round(int(response.totals[0]) / 60, 2)
 
     def get_users(self, date1='yesterday', date2='yesterday'):
         url = self.base_url + "data"
         params = self.get_params(f'ym:s:users', date1, date2)
         response = self.get_response_object(requests.get(url, headers=self.headers, params=params))
+
+        self.logger.info("Пользователи получены")
 
         return response.totals[0]
 
@@ -62,6 +67,7 @@ class YandexApi:
             if 200 <= response.status <= 399:
                 metrics[row] = (users["totals"][0])
                 metrics["date"] = users["query"]["date1"]
+                self.logger.info(f"Визит {goals} получен")
 
             elif response.status == 400:
                 self.logger.warning(users)
@@ -82,6 +88,8 @@ class YandexApi:
 
         response = requests.get(url, headers=self.headers, params=params)
         data = response.json()["data"]
+
+        self.logger.info("CSAT получен")
 
         return {item["dimensions"][0]["name"]: item["metrics"][0] for item in data}
 
