@@ -110,9 +110,6 @@ class RefinancingExcel(BaseExcel):
     def main(self):
         book = openpyxl.load_workbook(self.filename)
 
-        bar = IncrementalBar(f"Выгрузка перекредитования за {datetime.now().strftime('%d.%m.%Y %H:%M:%S')}:",
-                             max=len(book.sheetnames))
-
         goals = self.get_ids_refinancing(book)
         formulas = self.get_ids_refinancing(book, is_comment=False)
 
@@ -146,8 +143,6 @@ class RefinancingExcel(BaseExcel):
 
                     row += 1
 
-            bar.next()
-
         book.save(self.filename)
         book.close()
 
@@ -156,5 +151,3 @@ class RefinancingExcel(BaseExcel):
                                   app_icon='data/static/success_icon-icons.com_52365.ico',
                                   title='Success',
                                   timeout=2)
-
-        bar.finish()
