@@ -75,7 +75,7 @@ class YandexApi:
         params = self.get_params("ym:s:paramsNumber",
                                  date,
                                  date,
-                                 dimension="ym:s:paramsLevel2",
+                                 dimensions="ym:s:paramsLevel2",
                                  sort="ym:s:paramsLevel2",
                                  filters="ym:s:paramsLevel1=='ratingVote'")
 
