@@ -10,7 +10,6 @@ from openpyxl.cell.cell import Cell
 from openpyxl.worksheet.worksheet import Worksheet
 from openpyxl.comments import Comment
 from openpyxl.workbook import Workbook
-from progress.bar import IncrementalBar
 
 from common import BaseExcel, api_yandex_async
 from common import YandexApi
@@ -104,7 +103,10 @@ class RefinancingExcel(BaseExcel):
         column = self.get_column_csat(sheet)
         if column is not None:
             csat = self.api.get_csat(date)
-            value = (csat.get('5', 0) + csat.get('4', 0)) / sum(csat.values())
+
+            summa = sum(csat.values())
+            value = (csat.get('5', 0) + csat.get('4', 0)) / summa if summa != 0 else 0
+
             cell: Cell = sheet.cell(row=row, column=column, value=value)
             sheet[cell.coordinate].number_format = BUILTIN_FORMATS[10]
 
