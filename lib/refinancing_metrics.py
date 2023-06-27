@@ -1,9 +1,10 @@
+import os
+
 import pandas as pd
 import traceback
 from datetime import datetime
 
 import openpyxl
-import plyer
 import schedule
 from openpyxl.styles.numbers import BUILTIN_FORMATS
 from openpyxl.cell.cell import Cell
@@ -18,8 +19,7 @@ from common import YandexApi
 class RefinancingExcel(BaseExcel):
     def __init__(self, filename=None):
         super().__init__()
-        self.filename = self.get_filepath("CR Перекредитование в ЛК") if filename is None else self.get_filepath(
-            filename)
+        self.filename = os.environ.get("ONEDRIVE_ETL") + "/CR Перекредитование в ЛК_версия 2.0.xlsx"
         self.api = YandexApi()
 
     @staticmethod
@@ -148,12 +148,6 @@ class RefinancingExcel(BaseExcel):
 
         book.save(self.filename)
         book.close()
-
-        plyer.notification.notify(message='Metrics is download!',
-                                  app_name='ParsMetrics',
-                                  app_icon='data/static/success_icon-icons.com_52365.ico',
-                                  title='Success',
-                                  timeout=2)
         
         next_run = schedule.next_run().strftime("%H:%M:%S")
         self.logger.info(f"Выгрузка завершена. Следующая в {next_run}")

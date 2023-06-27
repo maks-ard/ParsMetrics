@@ -50,7 +50,7 @@ if __name__ == '__main__':
             refinancing.main()
 
         elif args.mode == "auto":
-            schedule.every(1).hour.do(refinancing.main)
+            schedule.every(3).hours.do(refinancing.main)
             refinancing.main()
             while True:
                 schedule.run_pending()
