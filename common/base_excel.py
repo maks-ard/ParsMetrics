@@ -1,9 +1,7 @@
 import json
 import os
-import platform
 import logging
 import traceback
-import psutil
 from datetime import datetime, timedelta
 from tkinter import filedialog, Tk
 

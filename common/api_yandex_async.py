@@ -5,13 +5,12 @@ Callback URL: https://oauth.yandex.ru/verification_code
 """
 import asyncio
 import json
+import os
 from types import SimpleNamespace
 
 import aiohttp
 import requests
 import logging
-
-from common.privat_info import TOKEN
 
 service_name = "parser-yandex-metrics"
 metrics = {}
@@ -29,7 +28,7 @@ class YandexApi:
 
     @property
     def headers(self):
-        return {'Authorization': f'OAuth {TOKEN}'}
+        return {'Authorization': f'OAuth {os.environ.get("TOKEN")}'}
 
     def get_params(self, metric, first_date, last_date, **kwargs):
         return {

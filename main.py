@@ -3,13 +3,14 @@ import sys
 import time
 import traceback
 from datetime import datetime
-import plyer
 
 from argparse import ArgumentParser
 import schedule
+from dotenv import load_dotenv
 
 from lib import RefinancingExcel
 
+load_dotenv()
 service_name = "parser-yandex-metrics"
 
 
@@ -57,9 +58,4 @@ if __name__ == '__main__':
                 time.sleep(1)
 
     except Exception:
-        plyer.notification.notify(message='Error download metrics!',
-                                  app_name='ParsMetrics',
-                                  app_icon='data/static/problem_icon-icons.com_54943.ico',
-                                  title='Error',
-                                  timeout=5)
         logger.critical(traceback.format_exc())

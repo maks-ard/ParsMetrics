@@ -17,9 +17,9 @@ from common import YandexApi
 
 
 class RefinancingExcel(BaseExcel):
-    def __init__(self, filename=None):
+    def __init__(self):
         super().__init__()
-        self.filename = os.environ.get("ONEDRIVE_ETL") + "/CR Перекредитование в ЛК_версия 2.0.xlsx"
+        self.filename = os.environ.get("ONEDRIVE_ETL") + os.environ.get("FILENAME")
         self.api = YandexApi()
 
     @staticmethod
