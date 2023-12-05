@@ -30,11 +30,10 @@ def get_logger(level):
 def create_parser():
     parser = ArgumentParser()
 
-    modes = ["auto", "refin"]
     current_year = str(datetime.today().year)
 
-    parser.add_argument("-m", "--mode", default="auto", type=str, choices=modes)
     parser.add_argument("-s", "--startfile", default=False, const=True, action="store_const")
+    parser.add_argument("-o", "--only_one", default=False, const=True, action="store_const")
     parser.add_argument("-y", "--year", default=current_year, type=str)
     parser.add_argument("-l", "--loglevel", default=2, type=int)
 
@@ -46,16 +45,30 @@ if __name__ == '__main__':
     logger = get_logger(args.loglevel)
     refinancing = RefinancingExcel()
 
-    try:
-        if args.mode == "refin":
+    if args.only_one:
+        try:
+            logger.info("Единоразовый запуск")
             refinancing.main()
 
-        elif args.mode == "auto":
-            schedule.every(3).hours.do(refinancing.main)
-            refinancing.main()
+        except KeyboardInterrupt:
+            logger.warning("Ручная остановка")
+        except Exception:
+            logger.critical(traceback.format_exc())
+    else:
+        try:
+            schedule.every().day.at("09:30").do(refinancing.main)
+            schedule.every().day.at("14:00").do(refinancing.main)
+            schedule.every().day.at("16:30").do(refinancing.main)
+
+            if args.startfile:
+                refinancing.main()
+
             while True:
                 schedule.run_pending()
                 time.sleep(1)
 
-    except Exception:
-        logger.critical(traceback.format_exc())
+        except KeyboardInterrupt:
+            logger.warning("Ручная остановка")
+
+        except Exception:
+            logger.critical(traceback.format_exc())

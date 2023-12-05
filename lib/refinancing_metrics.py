@@ -148,6 +148,10 @@ class RefinancingExcel(BaseExcel):
 
         book.save(self.filename)
         book.close()
-        
-        next_run = schedule.next_run().strftime("%H:%M:%S")
-        self.logger.info(f"Выгрузка завершена. Следующая в {next_run}")
+
+        try:
+            next_run = schedule.next_run().strftime("%H:%M:%S")
+            self.logger.info(f"Выгрузка завершена. Следующая выгрузка в {next_run}")
+        except AttributeError:
+            self.logger.info(f"Выгрузка завершена")
+            pass
