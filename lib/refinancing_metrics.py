@@ -118,6 +118,7 @@ class RefinancingExcel(BaseExcel):
 
         for name, ids in goals.items():
             sheet: Worksheet = book[name]
+            self.logger.info(f"Заполнение листа {name} ...")
             last_row = self.get_row_for_write(sheet)
             first_date: datetime = last_row[0]
 
@@ -137,7 +138,7 @@ class RefinancingExcel(BaseExcel):
                     self.set_csat(sheet, date_format, row)
                     metrics = api_yandex_async.main(ids, date1=date_format, date2=date_format, need_users=False)
 
-                    self.logger.info(f"{name}: {metrics}")
+                    self.logger.debug(f"{name}: {metrics}")
 
                     # записывает полученные метрики
                     for col, goal in metrics.items():
@@ -145,6 +146,8 @@ class RefinancingExcel(BaseExcel):
                             sheet.cell(row=row, column=col, value=int(goal))
 
                     row += 1
+
+            self.logger.info(f"Лист {name} заполнен!")
 
         book.save(self.filename)
         book.close()
